@@ -13,11 +13,13 @@ type
     FNome: string;
     FSenha: string;
     FCodPerfil: Integer;
+    FEmail: string;
   public
     constructor Create;
     destructor Destroy; override;
     property Codigo: Integer read FCodigo write FCodigo;
     property Nome: string read FNome write FNome;
+    property Email: string read FEmail write FEmail;
     property Senha: string read FSenha write FSenha;
     property CodPerfil: Integer read FCodPerfil write FCodPerfil;
     function GetJSON(var ListaUsuario: TList<TModelUsuario>): TJSONObject;
@@ -55,6 +57,7 @@ begin
       LJSONUsuario := TJSONObject.Create;
       LJSONUsuario.AddPair('codigo',TJSONNumber.Create(ListaUsuario[I].Codigo));
       LJSONUsuario.AddPair('nome',TJSONString.Create(ListaUsuario[I].Nome));
+      LJSONUsuario.AddPair('email',TJSONNumber.Create(ListaUsuario[I].Email));
       LJSONUsuario.AddPair('senha',TJSONString.Create(ListaUsuario[I].Senha));
       LJSONUsuario.AddPair('codperfil',TJSONNumber.Create(ListaUsuario[I].CodPerfil));
       LJSONListaUsuario.AddElement(LJSONUsuario);

@@ -15,9 +15,10 @@ type
     destructor Destroy; override;
   end;
 
-  procedure ListarSecao(Req: THorseRequest; Res: THorseResponse; Next: TProc);
-  procedure CadastrarSecao(Req: THorseRequest; Res: THorseResponse; Next: TProc);
-  procedure AtualizarSecao(Req: THorseRequest; Res: THorseResponse; Next: TProc);
+  procedure Listar(Req: THorseRequest; Res: THorseResponse; Next: TProc);
+  procedure Cadastrar(Req: THorseRequest; Res: THorseResponse; Next: TProc);
+  procedure Alterar(Req: THorseRequest; Res: THorseResponse; Next: TProc);
+  procedure Deletar(Req: THorseRequest; Res: THorseResponse; Next: TProc);
 
 implementation
 
@@ -38,7 +39,7 @@ begin
   inherited;
 end;
 
-procedure CadastrarSecao(Req: THorseRequest; Res: THorseResponse; Next: TProc);
+procedure Cadastrar(Req: THorseRequest; Res: THorseResponse; Next: TProc);
 var
   ModelSecao: TModelSecao;
   DaoSecao: TDaoSecao;
@@ -46,14 +47,14 @@ begin
   ModelSecao := TModelSecao.Create;
   DaoSecao := TDaoSecao.Create(nil);
   try
-    DaoSecao.CadastrarSecao(Req,Res,Next);
+    DaoSecao.Cadastrar(Req,Res,Next);
   finally
     ModelSecao.Free;
     DaoSecao.Free;
   end;
 end;
 
-procedure AtualizarSecao(Req: THorseRequest; Res: THorseResponse; Next: TProc);
+procedure Alterar(Req: THorseRequest; Res: THorseResponse; Next: TProc);
 var
   ModelSecao: TModelSecao;
   DaoSecao: TDaoSecao;
@@ -61,14 +62,14 @@ begin
   ModelSecao := TModelSecao.Create;
   DaoSecao := TDaoSecao.Create(nil);
   try
-    DaoSecao.AtualizarSecao(Req,Res,Next);
+    DaoSecao.Alterar(Req,Res,Next);
   finally
     ModelSecao.Free;
     DaoSecao.Free;
   end;
 end;
 
-procedure ListarSecao(Req: THorseRequest; Res: THorseResponse; Next: TProc);
+procedure Listar(Req: THorseRequest; Res: THorseResponse; Next: TProc);
 var
   DaoSecao: TDaoSecao;
   ModelSecao: TModelSecao;
@@ -78,7 +79,7 @@ begin
   ListaSecao := TList<TModelSecao>.Create;
   try
     try
-      DaoSecao.ListarSecao(Req,ListaSecao);
+      DaoSecao.Listar(Req,ListaSecao);
       Res.Send(ModelSecao.GetJSON(ListaSecao)).Status(THTTPStatus.OK);
     except on
       E: Exception do
@@ -93,11 +94,27 @@ begin
   end;
 end;
 
+procedure Deletar(Req: THorseRequest; Res: THorseResponse; Next: TProc);
+var
+  ModelSecao: TModelSecao;
+  DaoSecao: TDaoSecao;
+begin
+  ModelSecao := TModelSecao.Create;
+  DaoSecao := TDaoSecao.Create(nil);
+  try
+    DaoSecao.Deletar(Req,Res,Next);
+  finally
+    ModelSecao.Free;
+    DaoSecao.Free;
+  end;
+end;
+
 procedure Registry;
 begin
-  THorse.Get('/secoes',ListarSecao);
-  THorse.Post('/secoes',CadastrarSecao);
-  THorse.Put('/secoes',AtualizarSecao);
+  THorse.Get('/secoes',Listar);
+  THorse.Post('/secoes',Cadastrar);
+  THorse.Put('/secoes',Alterar);
+  THorse.Delete('/secoes',Deletar);
 end;
 
 initialization

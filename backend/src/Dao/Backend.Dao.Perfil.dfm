@@ -1,4 +1,5 @@
 inherited DaoPerfil: TDaoPerfil
+  OldCreateOrder = True
   object QryPerfil: TFDQuery
     Connection = FDConexao
     Left = 152

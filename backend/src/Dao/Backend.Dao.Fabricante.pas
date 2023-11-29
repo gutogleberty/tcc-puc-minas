@@ -37,9 +37,10 @@ type
     { Private declarations }
   public
     { Public declarations }
-    function ListarFabricante(const Req: THorseRequest; var ListaFabricante: TList<TModelFabricante>): TList<TModelFabricante>;
-    procedure CadastrarFabricante(Req: THorseRequest; Res: THorseResponse; Next: TProc);
-    procedure AtualizarFabricante(Req: THorseRequest; Res: THorseResponse; Next: TProc);
+    function Listar(const Req: THorseRequest; var ListaFabricante: TList<TModelFabricante>): TList<TModelFabricante>;
+    procedure Cadastrar(Req: THorseRequest; Res: THorseResponse; Next: TProc);
+    procedure Alterar(Req: THorseRequest; Res: THorseResponse; Next: TProc);
+    procedure Deletar(Req: THorseRequest; Res: THorseResponse; Next: TProc);
   end;
 
 implementation
@@ -50,7 +51,7 @@ implementation
 
 { TDaoFabricante }
 
-procedure TDaoFabricante.AtualizarFabricante(Req: THorseRequest;
+procedure TDaoFabricante.Alterar(Req: THorseRequest;
   Res: THorseResponse; Next: TProc);
 var
   ObjetoMaster: TJSONObject;
@@ -90,7 +91,7 @@ begin
   end;
 end;
 
-procedure TDaoFabricante.CadastrarFabricante(Req: THorseRequest; Res: THorseResponse; Next: TProc);
+procedure TDaoFabricante.Cadastrar(Req: THorseRequest; Res: THorseResponse; Next: TProc);
 var
   ObjetoMaster: TJSONObject;
   PairCabecalho: TJSONPair;
@@ -130,7 +131,43 @@ begin
   end;
 end;
 
-function TDaoFabricante.ListarFabricante(const Req: THorseRequest;
+procedure TDaoFabricante.Deletar(Req: THorseRequest; Res: THorseResponse;
+  Next: TProc);
+var
+  ObjetoMaster: TJSONObject;
+  PairCabecalho: TJSONPair;
+  LJSONFabricante: TJSONObject;
+  LCodigo: Integer;
+begin
+  ObjetoMaster := TJSONObject.ParseJSONValue(TEncoding.UTF8.GetBytes(Req.Body),0) as TJSONObject;
+
+  PairCabecalho := ObjetoMaster.Get('fabricante');
+
+  LJSONFabricante := PairCabecalho.JsonValue as TJSONObject;
+
+  LCodigo := LJSONFabricante.GetValue<Integer>('codigo');
+
+  try
+    QryFabricante.Close;
+    QryFabricante.SQL.Clear;
+    QryFabricante.SQL.Add(' delete from fabricante    ');
+    QryFabricante.SQL.Add(' where                     ');
+    QryFabricante.SQL.Add('   codigo = :pcodigo       ');
+
+    QryFabricante.ParamByName('pcodigo').AsInteger := LCodigo;
+
+    QryFabricante.ExecSQL;
+
+    Res.Status(THTTPStatus.NoContent);
+  except on
+    E: Exception do
+    begin
+      Res.Send('Erro ao tentar deletar um fabricante').Status(THTTPStatus.BadRequest);
+    end;
+  end;
+end;
+
+function TDaoFabricante.Listar(const Req: THorseRequest;
   var ListaFabricante: TList<TModelFabricante>): TList<TModelFabricante>;
 var
   ModelFabricante: TModelFabricante;

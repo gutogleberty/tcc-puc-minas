@@ -64,4 +64,15 @@ object ViewFabricante: TViewFabricante
     Color = clBtnFace
     FriendlyName = 'BtnListar'
   end
+  object DataSource1: TDataSource
+    Left = 70
+    Top = 26
+  end
+  object TPS: TIWTemplateProcessorHTML
+    MasterFormTag = False
+    TagType = ttIntraWeb
+    RenderStyles = False
+    Left = 192
+    Top = 24
+  end
 end

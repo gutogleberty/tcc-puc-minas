@@ -120,11 +120,6 @@
             <DesignClass>TIWAppForm</DesignClass>
         </DCCReference>
         <DCCReference Include="src\Library\Template.StartAdmin.pas"/>
-        <DCCReference Include="Frontend.View.Padrao.pas">
-            <Form>ViewPadrao</Form>
-            <FormType>dfm</FormType>
-            <DesignClass>TIWAppForm</DesignClass>
-        </DCCReference>
         <DCCReference Include="src\View\Frontend.View.Login.pas">
             <Form>ViewLogin</Form>
             <FormType>dfm</FormType>
@@ -142,6 +137,11 @@
         </DCCReference>
         <DCCReference Include="src\View\Frontend.View.Perfil.pas">
             <Form>ViewPerfil</Form>
+            <FormType>dfm</FormType>
+            <DesignClass>TIWAppForm</DesignClass>
+        </DCCReference>
+        <DCCReference Include="src\View\Frontend.View.Padrao.pas">
+            <Form>ViewPadrao</Form>
             <FormType>dfm</FormType>
             <DesignClass>TIWAppForm</DesignClass>
         </DCCReference>

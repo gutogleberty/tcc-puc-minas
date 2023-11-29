@@ -24,11 +24,11 @@ uses
   Frontend.View.Secao in 'src\View\Frontend.View.Secao.pas' {ViewSecao: TIWAppForm},
   Frontend.View.MenuPrincipal in 'src\View\Frontend.View.MenuPrincipal.pas' {ViewMenuPrincipal: TIWAppForm},
   Template.StartAdmin in 'src\Library\Template.StartAdmin.pas',
-  Frontend.View.Padrao in 'Frontend.View.Padrao.pas' {ViewPadrao: TIWAppForm},
   Frontend.View.Login in 'src\View\Frontend.View.Login.pas' {ViewLogin: TIWAppForm},
   Frontend.View.Produto in 'src\View\Frontend.View.Produto.pas' {ViewProduto: TIWAppForm},
   Frontend.View.Usuario in 'src\View\Frontend.View.Usuario.pas' {ViewUsuario: TIWAppForm},
-  Frontend.View.Perfil in 'src\View\Frontend.View.Perfil.pas' {ViewPerfil: TIWAppForm};
+  Frontend.View.Perfil in 'src\View\Frontend.View.Perfil.pas' {ViewPerfil: TIWAppForm},
+  Frontend.View.Padrao in 'src\View\Frontend.View.Padrao.pas' {ViewPadrao: TIWAppForm};
 
 {$R *.res}
 

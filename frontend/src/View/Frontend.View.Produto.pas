@@ -43,7 +43,9 @@ implementation
 
 {$R *.dfm}
 
-uses Frontend.Model.Produto;
+uses
+  Frontend.Model.Produto,
+  Frontend.View.MenuPrincipal;
 
 procedure TViewProduto.BtnAlterarAsyncClick(Sender: TObject;
   EventParams: TStringList);

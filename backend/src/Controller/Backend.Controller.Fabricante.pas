@@ -15,9 +15,10 @@ type
     destructor Destroy; override;
   end;
 
-  procedure ListarFabricante(Req: THorseRequest; Res: THorseResponse; Next: TProc);
-  procedure CadastrarFabricante(Req: THorseRequest; Res: THorseResponse; Next: TProc);
-  procedure AtualizarFabricante(Req: THorseRequest; Res: THorseResponse; Next: TProc);
+  procedure Listar(Req: THorseRequest; Res: THorseResponse; Next: TProc);
+  procedure Cadastrar(Req: THorseRequest; Res: THorseResponse; Next: TProc);
+  procedure Alterar(Req: THorseRequest; Res: THorseResponse; Next: TProc);
+  procedure Deletar(Req: THorseRequest; Res: THorseResponse; Next: TProc);
 
 implementation
 
@@ -38,7 +39,7 @@ begin
   inherited;
 end;
 
-procedure CadastrarFabricante(Req: THorseRequest; Res: THorseResponse; Next: TProc);
+procedure Cadastrar(Req: THorseRequest; Res: THorseResponse; Next: TProc);
 var
   ModelFabricante: TModelFabricante;
   DaoFabricante: TDaoFabricante;
@@ -46,14 +47,14 @@ begin
   ModelFabricante := TModelFabricante.Create;
   DaoFabricante := TDaoFabricante.Create(nil);
   try
-    DaoFabricante.CadastrarFabricante(Req,Res,Next);
+    DaoFabricante.Cadastrar(Req,Res,Next);
   finally
     ModelFabricante.Free;
     DaoFabricante.Free;
   end;
 end;
 
-procedure AtualizarFabricante(Req: THorseRequest; Res: THorseResponse; Next: TProc);
+procedure Alterar(Req: THorseRequest; Res: THorseResponse; Next: TProc);
 var
   ModelFabricante: TModelFabricante;
   DaoFabricante: TDaoFabricante;
@@ -61,14 +62,14 @@ begin
   ModelFabricante := TModelFabricante.Create;
   DaoFabricante := TDaoFabricante.Create(nil);
   try
-    DaoFabricante.AtualizarFabricante(Req,Res,Next);
+    DaoFabricante.Alterar(Req,Res,Next);
   finally
     ModelFabricante.Free;
     DaoFabricante.Free;
   end;
 end;
 
-procedure ListarFabricante(Req: THorseRequest; Res: THorseResponse; Next: TProc);
+procedure Listar(Req: THorseRequest; Res: THorseResponse; Next: TProc);
 var
   DaoFabricante: TDaoFabricante;
   ModelFabricante: TModelFabricante;
@@ -78,7 +79,7 @@ begin
   ListaFabricante := TList<TModelFabricante>.Create;
   try
     try
-      DaoFabricante.ListarFabricante(Req,ListaFabricante);
+      DaoFabricante.Listar(Req,ListaFabricante);
       Res.Send(ModelFabricante.GetJSON(ListaFabricante)).Status(THTTPStatus.OK);
     except on
       E: Exception do
@@ -93,11 +94,27 @@ begin
   end;
 end;
 
+procedure Deletar(Req: THorseRequest; Res: THorseResponse; Next: TProc);
+var
+  ModelFabricante: TModelFabricante;
+  DaoFabricante: TDaoFabricante;
+begin
+  ModelFabricante := TModelFabricante.Create;
+  DaoFabricante := TDaoFabricante.Create(nil);
+  try
+    DaoFabricante.Deletar(Req,Res,Next);
+  finally
+    ModelFabricante.Free;
+    DaoFabricante.Free;
+  end;
+end;
+
 procedure Registry;
 begin
-  THorse.Get('/fabricantes',ListarFabricante);
-  THorse.Post('/fabricantes',CadastrarFabricante);
-  THorse.Put('/fabricantes',AtualizarFabricante);
+  THorse.Get('/fabricantes',Listar);
+  THorse.Post('/fabricantes',Cadastrar);
+  THorse.Put('/fabricantes',Alterar);
+  THorse.Delete('/fabricantes',Deletar);
 end;
 
 initialization

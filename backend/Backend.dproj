@@ -71,8 +71,8 @@
         <Base>true</Base>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Base)'!=''">
-        <DCC_DcuOutput>.\$(Platform)\$(Config)</DCC_DcuOutput>
-        <DCC_ExeOutput>.\$(Platform)\$(Config)</DCC_ExeOutput>
+        <DCC_DcuOutput>S:\Guto Gleberty\Fontes\_Dcu\</DCC_DcuOutput>
+        <DCC_ExeOutput>S:\Guto Gleberty\Fontes\_Exec\</DCC_ExeOutput>
         <DCC_E>false</DCC_E>
         <DCC_N>false</DCC_N>
         <DCC_S>false</DCC_S>
@@ -83,6 +83,8 @@
         <Icns_MainIcns>$(BDS)\bin\delphi_PROJECTICNS.icns</Icns_MainIcns>
         <SanitizedProjectName>Backend</SanitizedProjectName>
         <DCC_UnitSearchPath>modules\.dcp;modules\.dcu;modules;modules\gbswagger\Source\Core;modules\gbswagger\Source\Datasnap;modules\gbswagger\Source\Horse;modules\gbswagger\Source\Validator;modules\handle-exception\src;modules\horse\src;modules\horse-basic-auth\src;modules\horse-compression\src;modules\horse-cors\src;modules\jhonson\src;$(DCC_UnitSearchPath)</DCC_UnitSearchPath>
+        <VerInfo_Locale>1046</VerInfo_Locale>
+        <VerInfo_Keys>CompanyName=;FileDescription=$(MSBuildProjectName);FileVersion=1.0.0.0;InternalName=;LegalCopyright=;LegalTrademarks=;OriginalFilename=;ProgramID=com.embarcadero.$(MSBuildProjectName);ProductName=$(MSBuildProjectName);ProductVersion=1.0.0.0;Comments=</VerInfo_Keys>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Base_Android)'!=''">
         <DCC_UsePackage>DBXSqliteDriver;tethering;RESTBackendComponents;bindengine;CloudService;bindcompdbx;IndyIPServer;IndySystem;fmxFireDAC;FMXTee;soaprtl;DbxCommonDriver;xmlrtl;soapmidas;rtl;DbxClientDriver;IndyIPClient;RESTComponents;DBXInterBaseDriver;bindcompfmx;FmxTeeUI;fmx;FireDACIBDriver;dbexpress;IndyCore;dsnap;FireDACCommon;soapserver;FireDACCommonDriver;inet;IndyIPCommon;FireDAC;FireDACSqliteDriver;CustomIPTransport;bindcomp;dbxcds;dsnapxml;dbrtl;IndyProtocols;$(DCC_UsePackage)</DCC_UsePackage>
@@ -216,15 +218,6 @@
                     <Source Name="MainSource">Backend.dpr</Source>
                 </Source>
                 <Excluded_Packages>
-                    <Excluded_Packages Name="S:\G2 Sistemas\Componentes\ACBr\Lib\Delphi\LibD27\Win32\DCLACBr_Serial.bpl">ACBr - (design-time) ECF, Balanças, Cheques, Displays, Etiquetas, Gavetas, Terminais, SMS, RFD, Leitores - (http://www.projetoacbr.com.br/)</Excluded_Packages>
-                    <Excluded_Packages Name="S:\G2 Sistemas\Componentes\ACBr\Lib\Delphi\LibD27\Win32\DCLACBr_Convenio115.bpl">ACBr - (design-time) Convênio ICMS 115 - (http://www.projetoacbr.com.br/)</Excluded_Packages>
-                    <Excluded_Packages Name="S:\G2 Sistemas\Componentes\ACBr\Lib\Delphi\LibD27\Win32\DCLACBr_LFD.bpl">ACBr - (design-time) Livro Fiscal Digital - (http://www.projetoacbr.com.br/)</Excluded_Packages>
-                    <Excluded_Packages Name="S:\G2 Sistemas\Componentes\ACBr\Lib\Delphi\LibD27\Win32\DCLACBr_EDI.bpl">ACBr - (design-time) Intercâmbio de Arquivos para Transportadora - (http://www.projetoacbr.com.br/)</Excluded_Packages>
-                    <Excluded_Packages Name="S:\G2 Sistemas\Componentes\ACBr\Lib\Delphi\LibD27\Win32\DCLACBr_PAF.bpl">ACBr - (design-time) Programa Aplicativo Fiscal ECF - (http://www.projetoacbr.com.br/)</Excluded_Packages>
-                    <Excluded_Packages Name="S:\G2 Sistemas\Componentes\ACBr\Lib\Delphi\LibD27\Win32\DCLACBr_SEF2.bpl">ACBr - (design-time) SEF2 (eDoc e SEF) - (http://www.projetoacbr.com.br/)</Excluded_Packages>
-                    <Excluded_Packages Name="S:\G2 Sistemas\Componentes\ACBr\Lib\Delphi\LibD27\Win32\DCLACBr_Sintegra.bpl">ACBr - (design-time) Sintegra - (http://www.projectoacbr.com.br/)</Excluded_Packages>
-                    <Excluded_Packages Name="S:\G2 Sistemas\Componentes\ACBr\Lib\Delphi\LibD27\Win32\DCLACBr_SPED.bpl">ACBr - (design-time) EFD ICMS/IPI, EFD Contribuições, EFD Contábil - (http://www.projetoacbr.com.br/)</Excluded_Packages>
-                    <Excluded_Packages Name="S:\G2 Sistemas\Componentes\ACBr\Lib\Delphi\LibD27\Win32\DCLACBr_SPEDImportar.bpl">ACBr - (design-time) EFD ICMS/IPI, EFD Contribuições, EFD Contábil - Importação - (http://www.projetoacbr.com.br/)</Excluded_Packages>
                     <Excluded_Packages Name="C:\Users\Public\Documents\Embarcadero\Studio\21.0\Bpl\dcldxIconLibraryRS27.bpl">Express Cross Platform Library Icon Library by Developer Express Inc.</Excluded_Packages>
                     <Excluded_Packages Name="$(BDSBIN)\dcloffice2k270.bpl">Microsoft Office 2000 Sample Automation Server Wrapper Components</Excluded_Packages>
                     <Excluded_Packages Name="$(BDSBIN)\dclofficexp270.bpl">Microsoft Office XP Sample Automation Server Wrapper Components</Excluded_Packages>

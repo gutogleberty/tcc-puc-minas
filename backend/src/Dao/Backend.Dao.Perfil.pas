@@ -37,9 +37,10 @@ type
     { Private declarations }
   public
     { Public declarations }
-    function ListarPerfil(const Req: THorseRequest; var ListaPerfil: TList<TModelPerfil>): TList<TModelPerfil>;
-    procedure CadastrarPerfil(Req: THorseRequest; Res: THorseResponse; Next: TProc);
-    procedure AtualizarPerfil(Req: THorseRequest; Res: THorseResponse; Next: TProc);
+    function Listar(const Req: THorseRequest; var ListaPerfil: TList<TModelPerfil>): TList<TModelPerfil>;
+    procedure Cadastrar(Req: THorseRequest; Res: THorseResponse; Next: TProc);
+    procedure Alterar(Req: THorseRequest; Res: THorseResponse; Next: TProc);
+    procedure Deletar(Req: THorseRequest; Res: THorseResponse; Next: TProc);
   end;
 
 implementation
@@ -50,7 +51,7 @@ implementation
 
 { TDaoPerfil }
 
-procedure TDaoPerfil.AtualizarPerfil(Req: THorseRequest;
+procedure TDaoPerfil.Alterar(Req: THorseRequest;
   Res: THorseResponse; Next: TProc);
 var
   ObjetoMaster: TJSONObject;
@@ -90,7 +91,7 @@ begin
   end;
 end;
 
-procedure TDaoPerfil.CadastrarPerfil(Req: THorseRequest; Res: THorseResponse; Next: TProc);
+procedure TDaoPerfil.Cadastrar(Req: THorseRequest; Res: THorseResponse; Next: TProc);
 var
   ObjetoMaster: TJSONObject;
   PairCabecalho: TJSONPair;
@@ -130,7 +131,7 @@ begin
   end;
 end;
 
-function TDaoPerfil.ListarPerfil(const Req: THorseRequest;
+function TDaoPerfil.Listar(const Req: THorseRequest;
   var ListaPerfil: TList<TModelPerfil>): TList<TModelPerfil>;
 var
   ModelPerfil: TModelPerfil;
@@ -179,6 +180,41 @@ begin
 
   finally
     // ModelEntityProduto.Free;
+  end;
+end;
+
+procedure TDaoPerfil.Deletar(Req: THorseRequest; Res: THorseResponse; Next: TProc);
+var
+  ObjetoMaster: TJSONObject;
+  PairCabecalho: TJSONPair;
+  LJSONPerfil: TJSONObject;
+  LCodigo: Integer;
+begin
+  ObjetoMaster := TJSONObject.ParseJSONValue(TEncoding.UTF8.GetBytes(Req.Body),0) as TJSONObject;
+
+  PairCabecalho := ObjetoMaster.Get('perfil');
+
+  LJSONPerfil := PairCabecalho.JsonValue as TJSONObject;
+
+  LCodigo := LJSONPerfil.GetValue<Integer>('codigo');
+
+  try
+    QryPerfil.Close;
+    QryPerfil.SQL.Clear;
+    QryPerfil.SQL.Add(' delete from perfil  ');
+    QryPerfil.SQL.Add(' where               ');
+    QryPerfil.SQL.Add('   codigo = :pcodigo ');
+
+    QryPerfil.ParamByName('pcodigo').AsInteger := LCodigo;
+
+    QryPerfil.ExecSQL;
+
+    Res.Status(THTTPStatus.NoContent);
+  except on
+    E: Exception do
+    begin
+      Res.Send('Erro ao tentar deletar um perfil').Status(THTTPStatus.BadRequest);
+    end;
   end;
 end;
 

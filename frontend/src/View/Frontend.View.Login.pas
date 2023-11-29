@@ -25,7 +25,7 @@ uses
   IWBaseContainerLayout,
   IWHTMLTag,
   IWContainerLayout,
-  IWTemplateProcessorHTML;
+  IWTemplateProcessorHTML, Data.DB;
 
 type
   TViewLogin = class(TViewPadrao)

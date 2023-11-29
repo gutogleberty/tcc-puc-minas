@@ -40,6 +40,9 @@ type
 
 implementation
 
+uses
+  Frontend.View.MenuPrincipal;
+
 {$R *.dfm}
 
 

@@ -15,9 +15,10 @@ type
     destructor Destroy; override;
   end;
 
-  procedure ListarUsuario(Req: THorseRequest; Res: THorseResponse; Next: TProc);
-  procedure CadastrarUsuario(Req: THorseRequest; Res: THorseResponse; Next: TProc);
-  procedure AtualizarUsuario(Req: THorseRequest; Res: THorseResponse; Next: TProc);
+  procedure Listar(Req: THorseRequest; Res: THorseResponse; Next: TProc);
+  procedure Cadastrar(Req: THorseRequest; Res: THorseResponse; Next: TProc);
+  procedure Alterar(Req: THorseRequest; Res: THorseResponse; Next: TProc);
+  procedure Deletar(Req: THorseRequest; Res: THorseResponse; Next: TProc);
 
 implementation
 
@@ -38,7 +39,7 @@ begin
   inherited;
 end;
 
-procedure CadastrarUsuario(Req: THorseRequest; Res: THorseResponse; Next: TProc);
+procedure Cadastrar(Req: THorseRequest; Res: THorseResponse; Next: TProc);
 var
   ModelUsuario: TModelUsuario;
   DaoUsuario: TDaoUsuario;
@@ -46,14 +47,14 @@ begin
   ModelUsuario := TModelUsuario.Create;
   DaoUsuario := TDaoUsuario.Create(nil);
   try
-    DaoUsuario.CadastrarUsuario(Req,Res,Next);
+    DaoUsuario.Cadastrar(Req,Res,Next);
   finally
     ModelUsuario.Free;
     DaoUsuario.Free;
   end;
 end;
 
-procedure AtualizarUsuario(Req: THorseRequest; Res: THorseResponse; Next: TProc);
+procedure Alterar(Req: THorseRequest; Res: THorseResponse; Next: TProc);
 var
   ModelUsuario: TModelUsuario;
   DaoUsuario: TDaoUsuario;
@@ -61,14 +62,14 @@ begin
   ModelUsuario := TModelUsuario.Create;
   DaoUsuario := TDaoUsuario.Create(nil);
   try
-    DaoUsuario.AtualizarUsuario(Req,Res,Next);
+    DaoUsuario.Alterar(Req,Res,Next);
   finally
     ModelUsuario.Free;
     DaoUsuario.Free;
   end;
 end;
 
-procedure ListarUsuario(Req: THorseRequest; Res: THorseResponse; Next: TProc);
+procedure Listar(Req: THorseRequest; Res: THorseResponse; Next: TProc);
 var
   DaoUsuario: TDaoUsuario;
   ModelUsuario: TModelUsuario;
@@ -78,7 +79,7 @@ begin
   ListaFabricante := TList<TModelUsuario>.Create;
   try
     try
-      DaoUsuario.ListarUsuario(Req,ListaFabricante);
+      DaoUsuario.Listar(Req,ListaFabricante);
       Res.Send(ModelUsuario.GetJSON(ListaFabricante)).Status(THTTPStatus.OK);
     except on
       E: Exception do
@@ -93,11 +94,27 @@ begin
   end;
 end;
 
+procedure Deletar(Req: THorseRequest; Res: THorseResponse; Next: TProc);
+var
+  ModelUsuario: TModelUsuario;
+  DaoUsuario: TDaoUsuario;
+begin
+  ModelUsuario := TModelUsuario.Create;
+  DaoUsuario := TDaoUsuario.Create(nil);
+  try
+    DaoUsuario.Deletar(Req,Res,Next);
+  finally
+    ModelUsuario.Free;
+    DaoUsuario.Free;
+  end;
+end;
+
 procedure Registry;
 begin
-  THorse.Get('/usuarios',ListarUsuario);
-  THorse.Post('/usuarios',CadastrarUsuario);
-  THorse.Put('/usuarios',AtualizarUsuario);
+  THorse.Get('/usuarios',Listar);
+  THorse.Post('/usuarios',Cadastrar);
+  THorse.Put('/usuarios',Alterar);
+  THorse.Delete('/usuarios',Deletar);
 end;
 
 initialization

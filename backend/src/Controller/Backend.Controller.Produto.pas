@@ -16,9 +16,10 @@ type
     destructor Destroy; override;
   end;
 
-  procedure ListarProdutos(Req: THorseRequest; Res: THorseResponse; Next: TProc);
-  procedure CadastrarProduto(Req: THorseRequest; Res: THorseResponse; Next: TProc);
-  procedure AtualizarProduto(Req: THorseRequest; Res: THorseResponse; Next: TProc);
+  procedure Listar(Req: THorseRequest; Res: THorseResponse; Next: TProc);
+  procedure Cadastrar(Req: THorseRequest; Res: THorseResponse; Next: TProc);
+  procedure Alterar(Req: THorseRequest; Res: THorseResponse; Next: TProc);
+  procedure Deletar(Req: THorseRequest; Res: THorseResponse; Next: TProc);
 
 implementation
 
@@ -39,7 +40,7 @@ begin
   inherited;
 end;
 
-procedure CadastrarProduto(Req: THorseRequest; Res: THorseResponse; Next: TProc);
+procedure Cadastrar(Req: THorseRequest; Res: THorseResponse; Next: TProc);
 var
   ModelProduto: TModelProduto;
   DaoProduto: TDaoProduto;
@@ -47,14 +48,14 @@ begin
   ModelProduto := TModelProduto.Create;
   DaoProduto := TDaoProduto.Create(nil);
   try
-    DaoProduto.CadastrarProduto(Req,Res,Next);
+    DaoProduto.Cadastrar(Req,Res,Next);
   finally
     ModelProduto.Free;
     DaoProduto.Free;
   end;
 end;
 
-procedure AtualizarProduto(Req: THorseRequest; Res: THorseResponse; Next: TProc);
+procedure Alterar(Req: THorseRequest; Res: THorseResponse; Next: TProc);
 var
   ModelProduto: TModelProduto;
   DaoProduto: TDaoProduto;
@@ -62,14 +63,14 @@ begin
   ModelProduto := TModelProduto.Create;
   DaoProduto := TDaoProduto.Create(nil);
   try
-    DaoProduto.AtualizarProduto(Req,Res,Next);
+    DaoProduto.Alterar(Req,Res,Next);
   finally
     ModelProduto.Free;
     DaoProduto.Free;
   end;
 end;
 
-procedure ListarProdutos(Req: THorseRequest; Res: THorseResponse; Next: TProc);
+procedure Listar(Req: THorseRequest; Res: THorseResponse; Next: TProc);
 var
   DaoProduto: TDaoProduto;
   ModelProduto: TModelProduto;
@@ -79,7 +80,7 @@ begin
   ListaProduto := TList<TModelProduto>.Create;
   try
     try
-      DaoProduto.ListarProduto(Req,ListaProduto);
+      DaoProduto.Listar(Req,ListaProduto);
       Res.Send(ModelProduto.GetJSON(ListaProduto)).Status(THTTPStatus.OK);
     except on
       E: Exception do
@@ -94,11 +95,27 @@ begin
   end;
 end;
 
+procedure Deletar(Req: THorseRequest; Res: THorseResponse; Next: TProc);
+var
+  ModelProduto: TModelProduto;
+  DaoProduto: TDaoProduto;
+begin
+  ModelProduto := TModelProduto.Create;
+  DaoProduto := TDaoProduto.Create(nil);
+  try
+    DaoProduto.Deletar(Req,Res,Next);
+  finally
+    ModelProduto.Free;
+    DaoProduto.Free;
+  end;
+end;
+
 procedure Registry;
 begin
-  THorse.Get('/produtos',ListarProdutos);
-  THorse.Post('/produtos',CadastrarProduto);
-  THorse.Put('/produtos',AtualizarProduto);
+  THorse.Get('/produtos',Listar);
+  THorse.Post('/produtos',Cadastrar);
+  THorse.Put('/produtos',Alterar);
+  THorse.Delete('/produtos',Deletar);
 end;
 
 initialization

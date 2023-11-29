@@ -3,11 +3,27 @@ unit Frontend.View.Usuario;
 interface
 
 uses
-  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
-  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Frontend.View.Padrao, IWVCLComponent,
-  IWBaseLayoutComponent, IWBaseContainerLayout, IWContainerLayout,
-  IWTemplateProcessorHTML, IWVCLBaseControl, IWBaseControl, IWBaseHTMLControl,
-  IWControl, IWCompButton, Data.DB;
+  Winapi.Windows,
+  Winapi.Messages,
+  System.SysUtils,
+  System.Variants,
+  System.Classes,
+  Vcl.Graphics,
+  Vcl.Controls,
+  Vcl.Forms,
+  Vcl.Dialogs,
+  Frontend.View.Padrao,
+  IWVCLComponent,
+  IWBaseLayoutComponent,
+  IWBaseContainerLayout,
+  IWContainerLayout,
+  IWTemplateProcessorHTML,
+  IWVCLBaseControl,
+  IWBaseControl,
+  IWBaseHTMLControl,
+  IWControl,
+  IWCompButton,
+  Data.DB;
 
 type
   TViewUsuario = class(TViewPadrao)
@@ -28,7 +44,7 @@ var
 
 implementation
 
-{$R *.dfmn}
+{$R *.dfm}
 
 uses
   Frontend.View.MenuPrincipal;

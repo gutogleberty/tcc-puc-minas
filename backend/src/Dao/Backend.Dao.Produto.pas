@@ -37,9 +37,10 @@ type
     { Private declarations }
   public
     { Public declarations }
-    function ListarProduto(const Req: THorseRequest; var ListaProduto: TList<TModelProduto>): TList<TModelProduto>;
-    procedure CadastrarProduto(Req: THorseRequest; Res: THorseResponse; Next: TProc);
-    procedure AtualizarProduto(Req: THorseRequest; Res: THorseResponse; Next: TProc);
+    function Listar(const Req: THorseRequest; var ListaProduto: TList<TModelProduto>): TList<TModelProduto>;
+    procedure Cadastrar(Req: THorseRequest; Res: THorseResponse; Next: TProc);
+    procedure Alterar(Req: THorseRequest; Res: THorseResponse; Next: TProc);
+    procedure Deletar(Req: THorseRequest; Res: THorseResponse; Next: TProc);
   end;
 
 implementation
@@ -50,7 +51,7 @@ implementation
 
 { TDataModule2 }
 
-function TDaoProduto.ListarProduto(const Req: THorseRequest;
+function TDaoProduto.Listar(const Req: THorseRequest;
   var ListaProduto: TList<TModelProduto>): TList<TModelProduto>;
 var
   ModelProduto: TModelProduto;
@@ -112,7 +113,7 @@ begin
   end;
 end;
 
-procedure TDaoProduto.AtualizarProduto(Req: THorseRequest;
+procedure TDaoProduto.Alterar(Req: THorseRequest;
   Res: THorseResponse; Next: TProc);
 var
   ObjetoMaster: TJSONObject;
@@ -164,7 +165,7 @@ begin
   end;
 end;
 
-procedure TDaoProduto.CadastrarProduto(Req: THorseRequest; Res: THorseResponse; Next: TProc);
+procedure TDaoProduto.Cadastrar(Req: THorseRequest; Res: THorseResponse; Next: TProc);
 var
   ObjetoMaster: TJSONObject;
   PairCabecalho: TJSONPair;
@@ -217,4 +218,41 @@ begin
     end;
   end;
 end;
+
+procedure TDaoProduto.Deletar(Req: THorseRequest; Res: THorseResponse;
+  Next: TProc);
+var
+  ObjetoMaster: TJSONObject;
+  PairCabecalho: TJSONPair;
+  LJSONProduto: TJSONObject;
+  LCodigo: Integer;
+begin
+  ObjetoMaster := TJSONObject.ParseJSONValue(TEncoding.UTF8.GetBytes(Req.Body),0) as TJSONObject;
+
+  PairCabecalho := ObjetoMaster.Get('produto');
+
+  LJSONProduto := PairCabecalho.JsonValue as TJSONObject;
+
+  LCodigo := LJSONProduto.GetValue<Integer>('codigo');
+
+  try
+    QryProduto.Close;
+    QryProduto.SQL.Clear;
+    QryProduto.SQL.Add(' delete from produto     ');
+    QryProduto.SQL.Add(' where                      ');
+    QryProduto.SQL.Add('   codigo = :pcodigo        ');
+
+    QryProduto.ParamByName('pcodigo').AsInteger := LCodigo;
+
+    QryProduto.ExecSQL;
+
+    Res.Status(THTTPStatus.NoContent);
+  except on
+    E: Exception do
+    begin
+      Res.Send('Erro ao tentar deletar um produto').Status(THTTPStatus.BadRequest);
+    end;
+  end;
+end;
+
 end.

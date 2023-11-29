@@ -37,9 +37,10 @@ type
     { Private declarations }
   public
     { Public declarations }
-    function ListarUsuario(const Req: THorseRequest; var ListaUsuario: TList<TModelUsuario>): TList<TModelUsuario>;
-    procedure CadastrarUsuario(Req: THorseRequest; Res: THorseResponse; Next: TProc);
-    procedure AtualizarUsuario(Req: THorseRequest; Res: THorseResponse; Next: TProc);
+    function Listar(const Req: THorseRequest; var ListaUsuario: TList<TModelUsuario>): TList<TModelUsuario>;
+    procedure Cadastrar(Req: THorseRequest; Res: THorseResponse; Next: TProc);
+    procedure Alterar(Req: THorseRequest; Res: THorseResponse; Next: TProc);
+    procedure Deletar(Req: THorseRequest; Res: THorseResponse; Next: TProc);
   end;
 
 implementation
@@ -50,7 +51,7 @@ implementation
 
 { TDaoUsuario }
 
-procedure TDaoUsuario.AtualizarUsuario(Req: THorseRequest;
+procedure TDaoUsuario.Alterar(Req: THorseRequest;
   Res: THorseResponse; Next: TProc);
 var
   ObjetoMaster: TJSONObject;
@@ -58,6 +59,7 @@ var
   LJSONUsuario: TJSONObject;
   LCodigo: Integer;
   LNome: string;
+  LEmail: string;
   LSenha: string;
   LCodPerfil: Integer;
 begin
@@ -69,6 +71,7 @@ begin
 
   LCodigo := LJSONUsuario.GetValue<Integer>('codigo');
   LNome := LJSONUsuario.GetValue<string>('nome');
+  LEmail := LJSONUsuario.GetValue<string>('email');
   LSenha := LJSONUsuario.GetValue<string>('senha');
   LCodPerfil := LJSONUsuario.GetValue<Integer>('codperfil');
 
@@ -77,6 +80,7 @@ begin
     QryUsuario.SQL.Clear;
     QryUsuario.SQL.Add(' update usuario set       ');
     QryUsuario.SQL.Add('   nome = :pnome,         ');
+    QryUsuario.SQL.Add('   email = :pemail,       ');
     QryUsuario.SQL.Add('   senha = :psenha,       ');
     QryUsuario.SQL.Add('   codperfil = :pcodperfil ');
     QryUsuario.SQL.Add(' where                    ');
@@ -84,6 +88,7 @@ begin
 
     QryUsuario.ParamByName('pcodigo').AsInteger := LCodigo;
     QryUsuario.ParamByName('pnome').AsString := LNome;
+    QryUsuario.ParamByName('pemail').AsString := LEmail;
     QryUsuario.ParamByName('psenha').AsString := LSenha;
     QryUsuario.ParamByName('pcodperfil').AsInteger := LCodPerfil;
 
@@ -98,12 +103,13 @@ begin
   end;
 end;
 
-procedure TDaoUsuario.CadastrarUsuario(Req: THorseRequest; Res: THorseResponse; Next: TProc);
+procedure TDaoUsuario.Cadastrar(Req: THorseRequest; Res: THorseResponse; Next: TProc);
 var
   ObjetoMaster: TJSONObject;
   PairCabecalho: TJSONPair;
   LJSONUsuario: TJSONObject;
   LNome: string;
+  LEmail: string;
   LSenha: string;
   LCodPerfil: Integer;
 begin
@@ -114,6 +120,7 @@ begin
   LJSONUsuario := PairCabecalho.JsonValue as TJSONObject;
 
   LNome := LJSONUsuario.GetValue<string>('nome');
+  LEmail := LJSONUsuario.GetValue<string>('email');
   LSenha := LJSONUsuario.GetValue<string>('senha');
   LCodPerfil := LJSONUsuario.GetValue<Integer>('codperfil');
 
@@ -122,6 +129,7 @@ begin
     QryUsuario.SQL.Clear;
     QryUsuario.SQL.Add(' insert into usuario    ( ');
     QryUsuario.SQL.Add('   nome,                  ');
+    QryUsuario.SQL.Add('   email,                 ');
     QryUsuario.SQL.Add('   senha,                 ');
     QryUsuario.SQL.Add('   codperfil              ');
     QryUsuario.SQL.Add(')                         ');
@@ -129,11 +137,13 @@ begin
 
     QryUsuario.SQL.Add('(');
     QryUsuario.SQL.Add(' :pnome,      ');
+    QryUsuario.SQL.Add(' :pemail,     ');
     QryUsuario.SQL.Add(' :psenha,     ');
     QryUsuario.SQL.Add(' :pcodperfil  ');
     QryUsuario.SQL.Add(')');
 
     QryUsuario.ParamByName('pnome').AsString := LNome;
+    QryUsuario.ParamByName('pemail').AsString := LEmail;
     QryUsuario.ParamByName('psenha').AsString := LSenha;
     QryUsuario.ParamByName('pcodperfil').AsInteger := LCodPerfil;
 
@@ -148,7 +158,43 @@ begin
   end;
 end;
 
-function TDaoUsuario.ListarUsuario(const Req: THorseRequest;
+procedure TDaoUsuario.Deletar(Req: THorseRequest; Res: THorseResponse;
+  Next: TProc);
+var
+  ObjetoMaster: TJSONObject;
+  PairCabecalho: TJSONPair;
+  LJSONUsuario: TJSONObject;
+  LCodigo: Integer;
+begin
+  ObjetoMaster := TJSONObject.ParseJSONValue(TEncoding.UTF8.GetBytes(Req.Body),0) as TJSONObject;
+
+  PairCabecalho := ObjetoMaster.Get('usuarios');
+
+  LJSONUsuario := PairCabecalho.JsonValue as TJSONObject;
+
+  LCodigo := LJSONUsuario.GetValue<Integer>('codigo');
+
+  try
+    QryUsuario.Close;
+    QryUsuario.SQL.Clear;
+    QryUsuario.SQL.Add(' delete from usuario      ');
+    QryUsuario.SQL.Add(' where                    ');
+    QryUsuario.SQL.Add('   codigo = :pcodigo      ');
+
+    QryUsuario.ParamByName('pcodigo').AsInteger := LCodigo;
+
+    QryUsuario.ExecSQL;
+
+    Res.Status(THTTPStatus.NoContent);
+  except on
+    E: Exception do
+    begin
+      Res.Send('Erro ao tentar deletar um usuário').Status(THTTPStatus.BadRequest);
+    end;
+  end;
+end;
+
+function TDaoUsuario.Listar(const Req: THorseRequest;
   var ListaUsuario: TList<TModelUsuario>): TList<TModelUsuario>;
 var
   ModelUsuario: TModelUsuario;
@@ -159,6 +205,7 @@ begin
     QryUsuario.SQL.Add(' select         ');
     QryUsuario.SQL.Add('   codigo,      ');
     QryUsuario.SQL.Add('   nome,        ');
+    QryUsuario.SQL.Add('   email,       ');
     QryUsuario.SQL.Add('   senha,       ');
     QryUsuario.SQL.Add('   codperfil    ');
     QryUsuario.SQL.Add(' from           ');
@@ -187,7 +234,8 @@ begin
       begin
         ModelUsuario := TModelUsuario.Create;
         ModelUsuario.Codigo := QryUsuario.FieldByName('codigo').AsInteger;
-        ModelUsuario.nome := QryUsuario.FieldByName('nome').AsString;
+        ModelUsuario.Nome := QryUsuario.FieldByName('nome').AsString;
+        ModelUsuario.Email := QryUsuario.FieldByName('email').AsString;
         ModelUsuario.Senha := QryUsuario.FieldByName('senha').AsString;
         ModelUsuario.CodPerfil := QryUsuario.FieldByName('codperfil').AsInteger;
         ListaUsuario.Add(ModelUsuario);

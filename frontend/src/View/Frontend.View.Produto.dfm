@@ -216,6 +216,7 @@ inherited ViewProduto: TViewProduto
         Title.Wrap = False
         Title.RawText = True
       end>
+    DataSource = DataSource1
     FooterRowCount = 0
     FriendlyName = 'DBGrid'
     FromStart = True
@@ -289,7 +290,12 @@ inherited ViewProduto: TViewProduto
     Left = 208
     Top = 16
   end
-  object FDMemTable1: TFDMemTable [7]
+  inherited DataSource1: TDataSource
+    DataSet = FDMemTable1
+    Left = 374
+    Top = 306
+  end
+  object FDMemTable1: TFDMemTable
     FetchOptions.AssignedValues = [evMode]
     FetchOptions.Mode = fmAll
     ResourceOptions.AssignedValues = [rvSilentMode]
@@ -297,8 +303,8 @@ inherited ViewProduto: TViewProduto
     UpdateOptions.AssignedValues = [uvCheckRequired, uvAutoCommitUpdates]
     UpdateOptions.CheckRequired = False
     UpdateOptions.AutoCommitUpdates = True
-    Left = 454
-    Top = 298
+    Left = 446
+    Top = 306
     object FDMemTable1CODIGO: TIntegerField
       FieldName = 'CODIGO'
     end
@@ -317,9 +323,5 @@ inherited ViewProduto: TViewProduto
     object FDMemTable1VALORUNITARIO: TCurrencyField
       FieldName = 'VALORUNITARIO'
     end
-  end
-  inherited DataSource1: TDataSource
-    Left = 374
-    Top = 306
   end
 end

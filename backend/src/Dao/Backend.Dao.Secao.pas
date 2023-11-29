@@ -38,9 +38,10 @@ type
     { Private declarations }
   public
     { Public declarations }
-    function ListarSecao(const Req: THorseRequest; var ListaSecao: TList<TModelSecao>): TList<TModelSecao>;
-    procedure CadastrarSecao(Req: THorseRequest; Res: THorseResponse; Next: TProc);
-    procedure AtualizarSecao(Req: THorseRequest; Res: THorseResponse; Next: TProc);
+    function Listar(const Req: THorseRequest; var ListaSecao: TList<TModelSecao>): TList<TModelSecao>;
+    procedure Cadastrar(Req: THorseRequest; Res: THorseResponse; Next: TProc);
+    procedure Alterar(Req: THorseRequest; Res: THorseResponse; Next: TProc);
+    procedure Deletar(Req: THorseRequest; Res: THorseResponse; Next: TProc);
   end;
 
 implementation
@@ -51,7 +52,7 @@ implementation
 
 { TDaoSecao }
 
-function TDaoSecao.ListarSecao(const Req: THorseRequest;
+function TDaoSecao.Listar(const Req: THorseRequest;
   var ListaSecao: TList<TModelSecao>): TList<TModelSecao>;
 var
   ModelSecao: TModelSecao;
@@ -103,7 +104,7 @@ begin
   end;
 end;
 
-procedure TDaoSecao.AtualizarSecao(Req: THorseRequest;
+procedure TDaoSecao.Alterar(Req: THorseRequest;
   Res: THorseResponse; Next: TProc);
 var
   ObjetoMaster: TJSONObject;
@@ -143,7 +144,7 @@ begin
   end;
 end;
 
-procedure TDaoSecao.CadastrarSecao(Req: THorseRequest; Res: THorseResponse; Next: TProc);
+procedure TDaoSecao.Cadastrar(Req: THorseRequest; Res: THorseResponse; Next: TProc);
 var
   ObjetoMaster: TJSONObject;
   PairCabecalho: TJSONPair;
@@ -179,6 +180,42 @@ begin
     E: Exception do
     begin
       Res.Send('Erro ao tentar cadastrar uma seção').Status(THTTPStatus.BadRequest);
+    end;
+  end;
+end;
+
+procedure TDaoSecao.Deletar(Req: THorseRequest; Res: THorseResponse;
+  Next: TProc);
+var
+  ObjetoMaster: TJSONObject;
+  PairCabecalho: TJSONPair;
+  LJSONSecao: TJSONObject;
+  LCodigo: Integer;
+begin
+  ObjetoMaster := TJSONObject.ParseJSONValue(TEncoding.UTF8.GetBytes(Req.Body),0) as TJSONObject;
+
+  PairCabecalho := ObjetoMaster.Get('secao');
+
+  LJSONSecao := PairCabecalho.JsonValue as TJSONObject;
+
+  LCodigo := LJSONSecao.GetValue<Integer>('codigo');
+
+  try
+    QrySecao.Close;
+    QrySecao.SQL.Clear;
+    QrySecao.SQL.Add(' delete from secao         ');
+    QrySecao.SQL.Add(' where                     ');
+    QrySecao.SQL.Add('   codigo = :pcodigo       ');
+
+    QrySecao.ParamByName('pcodigo').AsInteger := LCodigo;
+
+    QrySecao.ExecSQL;
+
+    Res.Status(THTTPStatus.NoContent);
+  except on
+    E: Exception do
+    begin
+      Res.Send('Erro ao tentar deletar uma seção').Status(THTTPStatus.BadRequest);
     end;
   end;
 end;

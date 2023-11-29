@@ -9,8 +9,14 @@ uses
   IWApplication,
   IWColor,
   IWTypes,
-  Frontend.View.Padrao, Vcl.Controls, IWVCLBaseControl, IWBaseControl,
-  IWBaseHTMLControl, IWControl, IWCompButton;
+  Frontend.View.Padrao,
+  Vcl.Controls,
+  IWVCLBaseControl,
+  IWBaseControl,
+  IWBaseHTMLControl,
+  IWControl,
+  IWCompButton, IWVCLComponent, IWBaseLayoutComponent, IWBaseContainerLayout,
+  IWContainerLayout, IWTemplateProcessorHTML, Data.DB;
 
 type
   TViewFabricante = class(TViewPadrao)
@@ -19,6 +25,8 @@ type
     BtnAlterar: TIWButton;
     BtnCadastrar: TIWButton;
     BtnListar: TIWButton;
+    DataSource1: TDataSource;
+    TPS: TIWTemplateProcessorHTML;
     procedure BtnRetornarAsyncClick(Sender: TObject; EventParams: TStringList);
   public
     procedure ConfiguraControles;

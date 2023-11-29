@@ -1,6 +1,5 @@
 object IWServerController: TIWServerController
   OldCreateOrder = False
-  OnCreate = IWServerControllerBaseCreate
   AppName = 'MyApp'
   Description = 'My IntraWeb Application'
   DisplayName = 'IntraWeb Application'
