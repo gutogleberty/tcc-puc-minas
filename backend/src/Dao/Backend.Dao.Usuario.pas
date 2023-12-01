@@ -41,6 +41,7 @@ type
     procedure Cadastrar(Req: THorseRequest; Res: THorseResponse; Next: TProc);
     procedure Alterar(Req: THorseRequest; Res: THorseResponse; Next: TProc);
     procedure Deletar(Req: THorseRequest; Res: THorseResponse; Next: TProc);
+    function EnDecryptString(AValue : string; Chave: Word) : string;
   end;
 
 implementation
@@ -89,7 +90,7 @@ begin
     QryUsuario.ParamByName('pcodigo').AsInteger := LCodigo;
     QryUsuario.ParamByName('pnome').AsString := LNome;
     QryUsuario.ParamByName('pemail').AsString := LEmail;
-    QryUsuario.ParamByName('psenha').AsString := LSenha;
+    QryUsuario.ParamByName('psenha').AsString := EnDecryptString(LSenha,2023);
     QryUsuario.ParamByName('pcodperfil').AsInteger := LCodPerfil;
 
     QryUsuario.ExecSQL;
@@ -144,7 +145,7 @@ begin
 
     QryUsuario.ParamByName('pnome').AsString := LNome;
     QryUsuario.ParamByName('pemail').AsString := LEmail;
-    QryUsuario.ParamByName('psenha').AsString := LSenha;
+    QryUsuario.ParamByName('psenha').AsString := EnDecryptString(LSenha,2023);
     QryUsuario.ParamByName('pcodperfil').AsInteger := LCodPerfil;
 
     QryUsuario.ExecSQL;
@@ -192,6 +193,16 @@ begin
       Res.Send('Erro ao tentar deletar um usuário').Status(THTTPStatus.BadRequest);
     end;
   end;
+end;
+
+function TDaoUsuario.EnDecryptString(AValue: string; Chave: Word): string;
+var
+  OutValue : string;
+begin
+  OutValue := '';
+  for var I := 1 to Length(AValue) do
+  OutValue := OutValue + char(Not(ord(AValue[I])-Chave));
+  Result := OutValue;
 end;
 
 function TDaoUsuario.Listar(const Req: THorseRequest;

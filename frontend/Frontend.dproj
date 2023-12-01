@@ -107,14 +107,6 @@
             <Form>IWUserSession</Form>
             <DesignClass>TIWUserSessionBase</DesignClass>
         </DCCReference>
-        <DCCReference Include="src\View\Frontend.View.Fabricante.pas">
-            <Form>ViewFabricante</Form>
-            <DesignClass>TIWAppForm</DesignClass>
-        </DCCReference>
-        <DCCReference Include="src\View\Frontend.View.Secao.pas">
-            <Form>ViewSecao</Form>
-            <DesignClass>TIWAppForm</DesignClass>
-        </DCCReference>
         <DCCReference Include="src\View\Frontend.View.MenuPrincipal.pas">
             <Form>ViewMenuPrincipal</Form>
             <DesignClass>TIWAppForm</DesignClass>
@@ -125,23 +117,63 @@
             <FormType>dfm</FormType>
             <DesignClass>TIWAppForm</DesignClass>
         </DCCReference>
-        <DCCReference Include="src\View\Frontend.View.Produto.pas">
-            <Form>ViewProduto</Form>
+        <DCCReference Include="src\View\Frontend.View.Pq.Produto.pas">
+            <Form>ViewPqProduto</Form>
             <FormType>dfm</FormType>
             <DesignClass>TIWAppForm</DesignClass>
         </DCCReference>
-        <DCCReference Include="src\View\Frontend.View.Usuario.pas">
-            <Form>ViewUsuario</Form>
+        <DCCReference Include="src\View\Frontend.View.Pq.Usuario.pas">
+            <Form>ViewPqUsuario</Form>
             <FormType>dfm</FormType>
             <DesignClass>TIWAppForm</DesignClass>
         </DCCReference>
-        <DCCReference Include="src\View\Frontend.View.Perfil.pas">
-            <Form>ViewPerfil</Form>
+        <DCCReference Include="src\View\Frontend.View.Pq.Perfil.pas">
+            <Form>ViewPqPerfil</Form>
             <FormType>dfm</FormType>
             <DesignClass>TIWAppForm</DesignClass>
         </DCCReference>
         <DCCReference Include="src\View\Frontend.View.Padrao.pas">
             <Form>ViewPadrao</Form>
+            <FormType>dfm</FormType>
+            <DesignClass>TIWAppForm</DesignClass>
+        </DCCReference>
+        <DCCReference Include="Unit1.pas">
+            <Form>IWFrame1</Form>
+            <FormType>dfm</FormType>
+            <DesignClass>TFrame</DesignClass>
+        </DCCReference>
+        <DCCReference Include="src\View\Frontend.View.Cd.Fabricante.pas">
+            <Form>ViewCdFabricante</Form>
+            <FormType>dfm</FormType>
+            <DesignClass>TIWAppForm</DesignClass>
+        </DCCReference>
+        <DCCReference Include="src\View\Frontend.View.Cd.Produto.pas">
+            <Form>ViewCdProduto</Form>
+            <FormType>dfm</FormType>
+            <DesignClass>TIWAppForm</DesignClass>
+        </DCCReference>
+        <DCCReference Include="src\View\Frontend.View.Cd.Perfil.pas">
+            <Form>ViewCdPerfil</Form>
+            <FormType>dfm</FormType>
+            <DesignClass>TIWAppForm</DesignClass>
+        </DCCReference>
+        <DCCReference Include="src\View\Frontend.View.Cd.Usuario.pas">
+            <Form>ViewCdUsuario</Form>
+            <FormType>dfm</FormType>
+            <DesignClass>TIWAppForm</DesignClass>
+        </DCCReference>
+        <DCCReference Include="src\View\Frontend.View.Cd.Secao.pas">
+            <Form>ViewCdSecao</Form>
+            <FormType>dfm</FormType>
+            <DesignClass>TIWAppForm</DesignClass>
+        </DCCReference>
+        <DCCReference Include="src\View\Frontend.View.Pq.Fabricante.pas">
+            <Form>ViewPqFabricante</Form>
+            <FormType>dfm</FormType>
+            <DesignClass>TIWAppForm</DesignClass>
+        </DCCReference>
+        <DCCReference Include="src\View\Frontend.View.Pq.Secao.pas">
+            <Form>ViewPqSecao</Form>
             <FormType>dfm</FormType>
             <DesignClass>TIWAppForm</DesignClass>
         </DCCReference>

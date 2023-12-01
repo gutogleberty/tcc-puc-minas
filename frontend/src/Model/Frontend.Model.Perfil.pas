@@ -18,12 +18,14 @@ type
     constructor Create;
     destructor Destroy; override;
     class function New: iModelPerfil;
+    function Codigo(AValue: Integer): iModelPerfil; overload;
     function Codigo: Integer; overload;
     function Descricao(AValue: string): iModelPerfil; overload;
     function Descricao: string; overload;
     procedure Listar(ADataSet: TDataSet);
     procedure Cadastrar;
     procedure Alterar;
+    procedure Deletar;
   end;
 
 implementation
@@ -72,6 +74,12 @@ begin
                       .Request1;
 end;
 
+function TModelPerfil.Codigo(AValue: Integer): iModelPerfil;
+begin
+  Result := Self;
+  FCodigo := AValue;
+end;
+
 function TModelPerfil.Codigo: Integer;
 begin
   Result := FCodigo;
@@ -86,6 +94,25 @@ function TModelPerfil.Descricao(AValue: string): iModelPerfil;
 begin
   Result := Self;
   FDescricao := AValue;
+end;
+
+procedure TModelPerfil.Deletar;
+var
+  LJSONMaster: TJSONObject;
+  LJSONPerfil: TJSONObject;
+begin
+  LJSONMaster := TJSONObject.Create;
+  LJSONPerfil := TJSONObject.Create;
+  LJSONPerfil.AddPair('codigo',TJSONNumber.Create(Codigo));
+  LJSONMaster.AddPair('perfil',LJSONPerfil);
+
+  TModelRequestRestPadrao.New
+                      .Server('localhost')
+                      .Port(9000)
+                      .Resource('perfil')
+                      .Method(rmDELETE)
+                      .AddJSON(LJSONMaster)
+                      .Request1;
 end;
 
 function TModelPerfil.Descricao: string;
@@ -112,7 +139,7 @@ begin
                     .Method(rmGET)
                     .Request1;
 
-  PairCabecalho := LJSONMaster.Get('perfil');
+  PairCabecalho := LJSONMaster.Get('perfis');
 
   LJSONPerfil := PairCabecalho.JsonValue as TJSONArray;
 

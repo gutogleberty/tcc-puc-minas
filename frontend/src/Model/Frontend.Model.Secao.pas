@@ -18,12 +18,14 @@ type
     constructor Create;
     destructor Destroy; override;
     class function New: iModelSecao;
+    function Codigo(AValue: Integer): iModelSecao; overload;
     function Codigo: Integer; overload;
     function Descricao(AValue: string): iModelSecao; overload;
     function Descricao: string; overload;
     procedure Listar(ADataSet: TDataSet);
     procedure Cadastrar;
     procedure Alterar;
+    procedure Deletar;
   end;
 
 implementation
@@ -42,6 +44,7 @@ begin
   LJSONSecao := TJSONObject.Create;
   LJSONSecao.AddPair('codigo',TJSONNumber.Create(codigo));
   LJSONSecao.AddPair('descricao',TJSONString.Create(descricao));
+  LJSONMaster.AddPair('secao',LJSONSecao);
 
   TModelRequestRestPadrao.New
                       .Server('localhost')
@@ -60,6 +63,7 @@ begin
   LJSONMaster := TJSONObject.Create;
   LJSONSecao := TJSONObject.Create;
   LJSONSecao.AddPair('descricao',TJSONString.Create(descricao));
+  LJSONMaster.AddPair('secao',LJSONSecao);
 
   TModelRequestRestPadrao.New
                       .Server('localhost')
@@ -68,6 +72,12 @@ begin
                       .Method(rmPOST)
                       .AddJSON(LJSONMaster)
                       .Request1;
+end;
+
+function TModelSecao.Codigo(AValue: Integer): iModelSecao;
+begin
+   Result := Self;
+   FCodigo := AValue;
 end;
 
 function TModelSecao.Codigo: Integer;
@@ -84,6 +94,25 @@ function TModelSecao.Descricao(AValue: string): iModelSecao;
 begin
   Result := Self;
   FDescricao := AValue;
+end;
+
+procedure TModelSecao.Deletar;
+var
+  LJSONMaster: TJSONObject;
+  LJSONSecao: TJSONObject;
+begin
+  LJSONMaster := TJSONObject.Create;
+  LJSONSecao := TJSONObject.Create;
+  LJSONSecao.AddPair('codigo',TJSONNumber.Create(codigo));
+  LJSONMaster.AddPair('secao',LJSONSecao);
+
+  TModelRequestRestPadrao.New
+                      .Server('localhost')
+                      .Port(9000)
+                      .Resource('secao')
+                      .Method(rmDELETE)
+                      .AddJSON(LJSONMaster)
+                      .Request1;
 end;
 
 function TModelSecao.Descricao: string;

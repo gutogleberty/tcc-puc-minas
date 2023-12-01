@@ -8,9 +8,12 @@ uses
 type
   iModelUsuario = interface
   ['{72C1B3CE-E26A-4284-9107-68E9629545C9}']
+    function Codigo(AValue: Integer): iModelUsuario; overload;
     function Codigo: Integer; overload;
     function Nome(AValue: string): iModelUsuario; overload;
     function Nome: string; overload;
+    function Email(AValue: string): iModelUsuario; overload;
+    function Email: string; overload;
     function Senha(AValue: string): iModelUsuario; overload;
     function Senha: string; overload;
     function CodPerfil(AValue: Integer): iModelUsuario; overload;
@@ -18,6 +21,7 @@ type
     procedure Listar(ADataSet: TDataSet);
     procedure Cadastrar;
     procedure Alterar;
+    procedure Deletar;
   end;
 
 implementation

@@ -34,7 +34,7 @@ uses
   FireDAC.Comp.DataSet,
   FireDAC.Comp.Client,
   System.JSON,
-  REST.Types;
+  REST.Types, dxGDIPlusClasses, IWCompExtCtrls, IWCompLabel;
 
 type
   TViewMenuPrincipal = class(TIWAppForm)
@@ -45,6 +45,7 @@ type
     BtnSecao: TIWButton;
     BtnPerfil: TIWButton;
     BtnUsuario: TIWButton;
+    IWLabel1: TIWLabel;
     procedure IWAppFormCreate(Sender: TObject);
     procedure BtnProdutoClick(Sender: TObject);
     procedure BtnFabricantesClick(Sender: TObject);
@@ -61,35 +62,35 @@ implementation
 
 uses
   Frontend.Model.Produto,
-  Frontend.View.Fabricante,
-  Frontend.View.Perfil,
-  Frontend.View.Produto,
-  Frontend.View.Secao,
-  Frontend.View.Usuario;
+  Frontend.View.Pq.Fabricante,
+  Frontend.View.Pq.Perfil,
+  Frontend.View.Pq.Produto,
+  Frontend.View.Pq.Secao,
+  Frontend.View.Pq.Usuario;
 
 procedure TViewMenuPrincipal.BtnFabricantesClick(Sender: TObject);
 begin
-  TViewFabricante.Create(WebApplication).Show;
+  TViewPqFabricante.Create(WebApplication).Show;
 end;
 
 procedure TViewMenuPrincipal.BtnPerfilClick(Sender: TObject);
 begin
-  TViewPerfil.Create(WebApplication).Show;
+  TViewPqPerfil.Create(WebApplication).Show;
 end;
 
 procedure TViewMenuPrincipal.BtnProdutoClick(Sender: TObject);
 begin
-  TViewProduto.Create(WebApplication).Show;
+  TViewPqProduto.Create(WebApplication).Show;
 end;
 
 procedure TViewMenuPrincipal.BtnSecaoClick(Sender: TObject);
 begin
-  TViewSecao.Create(WebApplication).Show;
+  TViewPqSecao.Create(WebApplication).Show;
 end;
 
 procedure TViewMenuPrincipal.BtnUsuarioClick(Sender: TObject);
 begin
-  TViewUsuario.Create(WebApplication).Show;
+  TViewPqUsuario.Create(WebApplication).Show;
 end;
 
 procedure TViewMenuPrincipal.ConfiguraControles;

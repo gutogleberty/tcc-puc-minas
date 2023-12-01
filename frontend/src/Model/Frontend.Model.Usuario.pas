@@ -7,7 +7,8 @@ uses
   Data.DB,
   System.JSON,
   REST.Types,
-  FireDAC.Comp.Client;
+  FireDAC.Comp.Client,
+  IWApplication;
 
 type
   TModelUsuario = class(TInterfacedObject, iModelUsuario)
@@ -16,13 +17,17 @@ type
     FNome: string;
     FSenha: string;
     FCodPerfil: Integer;
+    FEmail: string;
   public
     constructor Create;
     destructor Destroy; override;
     class function New: iModelUsuario;
+    function Codigo(AValue: Integer): iModelUsuario; overload;
     function Codigo: Integer; overload;
     function Nome(AValue: string): iModelUsuario; overload;
     function Nome: string; overload;
+    function Email(AValue: string): iModelUsuario; overload;
+    function Email: string; overload;
     function Senha(AValue: string): iModelUsuario; overload;
     function Senha: string; overload;
     function CodPerfil(AValue: Integer): iModelUsuario; overload;
@@ -30,12 +35,14 @@ type
     procedure Listar(ADataSet: TDataSet);
     procedure Cadastrar;
     procedure Alterar;
+    procedure Deletar;
   end;
 
 implementation
 
 uses
-  Frontend.Model.RequestRestPadrao;
+  Frontend.Model.RequestRestPadrao,
+  Frontend.Model.RequestRestPadrao.Interfaces;
 
 { TModelUsuario }
 
@@ -70,6 +77,7 @@ begin
   LJSONUsuario := TJSONObject.Create;
   LJSONUsuario.AddPair('nome',TJSONString.Create(Nome));
   LJSONUsuario.AddPair('senha',TJSONNumber.Create(Senha));
+  LJSONUsuario.AddPair('email',TJSONNumber.Create(Email));
   LJSONUsuario.AddPair('codperfil',TJSONNumber.Create(CodPerfil));
   LJSONMaster.AddPair('usuario',LJSONUsuario);
 
@@ -85,6 +93,12 @@ end;
 function TModelUsuario.Codigo: Integer;
 begin
   Result := FCodigo;
+end;
+
+function TModelUsuario.Codigo(AValue: Integer): iModelUsuario;
+begin
+  Result := Self;
+  FCodigo := AValue;
 end;
 
 function TModelUsuario.CodPerfil: Integer;
@@ -103,10 +117,40 @@ begin
 
 end;
 
+procedure TModelUsuario.Deletar;
+var
+  LJSONMaster: TJSONObject;
+  LJSONUsuario: TJSONObject;
+begin
+  LJSONMaster := TJSONObject.Create;
+  LJSONUsuario := TJSONObject.Create;
+  LJSONUsuario.AddPair('codigo',TJSONNumber.Create(Codigo));
+  LJSONMaster.AddPair('usuario',LJSONUsuario);
+
+  TModelRequestRestPadrao.New
+                      .Server('localhost')
+                      .Port(9000)
+                      .Resource('usuarios')
+                      .Method(rmDELETE)
+                      .AddJSON(LJSONMaster)
+                      .Request1;
+end;
+
 destructor TModelUsuario.Destroy;
 begin
 
   inherited;
+end;
+
+function TModelUsuario.Email: string;
+begin
+  Result := FEmail;
+end;
+
+function TModelUsuario.Email(AValue: string): iModelUsuario;
+begin
+  Result := Self;
+  FEmail := AValue;
 end;
 
 procedure TModelUsuario.Listar(ADataSet: TDataSet);
@@ -114,6 +158,7 @@ var
   LJSONMaster: TJSONObject;
   PairCabecalho: TJSONPair;
   LJSONUsuario: TJSONArray;
+  ModelRequestRestPadrao: iModelRequestRestPadraoInterfaces;
 begin
   LJSONMaster := TModelRequestRestPadrao.New
                     .Server('localhost')
@@ -138,6 +183,7 @@ begin
       ADataSet.FieldByName('nome').AsString := LJSONUsuario.Get(I).GetValue<string>('nome');
       ADataSet.FieldByName('senha').AsString := LJSONUsuario.Get(I).GetValue<string>('senha');
       ADataSet.FieldByName('codperfil').AsString := LJSONUsuario.Get(I).GetValue<string>('codperfil');
+      ADataSet.FieldByName('email').AsString :=  LJSONUsuario.Get(I).GetValue<string>('email');
       ADataSet.Post;
     end;
   finally

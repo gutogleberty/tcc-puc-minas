@@ -13,7 +13,11 @@ uses
   IWBaseLayoutComponent,
   IWBaseContainerLayout,
   IWContainerLayout,
-  IWTemplateProcessorHTML, Data.DB;
+  IWTemplateProcessorHTML,
+  Data.DB;
+
+type
+  TStatus = (stInclusao, stAlteracao);
 
 type
   TViewPadrao = class(TIWAppForm)
@@ -22,6 +26,8 @@ type
     procedure IWAppFormCreate(Sender: TObject);
     procedure TPSUnknownTag(const AName: string; var VValue: string);
   public
+    Status: TStatus;
+    PrimaryKey: Integer;
     procedure ConfiguraControles;
   end;
 

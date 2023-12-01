@@ -18,8 +18,8 @@ object ViewMenuPrincipal: TViewMenuPrincipal
   DesignTop = 2
   object IWMenu1: TIWMenu
     AlignWithMargins = False
-    Left = 40
-    Top = 68
+    Left = 352
+    Top = 324
     Width = 200
     Height = 20
     FriendlyName = 'IWMenu1'
@@ -65,9 +65,9 @@ object ViewMenuPrincipal: TViewMenuPrincipal
   end
   object BtnProduto: TIWButton
     AlignWithMargins = False
-    Left = 568
-    Top = 96
-    Width = 120
+    Left = 298
+    Top = 116
+    Width = 300
     Height = 30
     Caption = 'Produtos'
     Color = clBtnFace
@@ -76,9 +76,9 @@ object ViewMenuPrincipal: TViewMenuPrincipal
   end
   object BtnFabricantes: TIWButton
     AlignWithMargins = False
-    Left = 568
-    Top = 132
-    Width = 120
+    Left = 298
+    Top = 152
+    Width = 300
     Height = 30
     Caption = 'Fabricantes'
     Color = clBtnFace
@@ -87,9 +87,9 @@ object ViewMenuPrincipal: TViewMenuPrincipal
   end
   object BtnSecao: TIWButton
     AlignWithMargins = False
-    Left = 568
-    Top = 168
-    Width = 120
+    Left = 298
+    Top = 188
+    Width = 300
     Height = 30
     Caption = 'Se'#231#245'es'
     Color = clBtnFace
@@ -98,9 +98,9 @@ object ViewMenuPrincipal: TViewMenuPrincipal
   end
   object BtnPerfil: TIWButton
     AlignWithMargins = False
-    Left = 568
-    Top = 204
-    Width = 120
+    Left = 298
+    Top = 224
+    Width = 300
     Height = 30
     Caption = 'Perfil'
     Color = clBtnFace
@@ -109,19 +109,33 @@ object ViewMenuPrincipal: TViewMenuPrincipal
   end
   object BtnUsuario: TIWButton
     AlignWithMargins = False
-    Left = 568
-    Top = 240
-    Width = 120
+    Left = 298
+    Top = 260
+    Width = 300
     Height = 30
     Caption = 'Usu'#225'rio'
     Color = clBtnFace
     FriendlyName = 'Usu'#225'rio'
     OnClick = BtnUsuarioClick
   end
+  object IWLabel1: TIWLabel
+    AlignWithMargins = False
+    Left = 16
+    Top = 16
+    Width = 257
+    Height = 81
+    Font.Color = clWebBLUE
+    Font.Size = 50
+    Font.Style = []
+    Font.PxSize = 66
+    HasTabOrder = False
+    FriendlyName = 'IWLabel1'
+    Caption = 'G2INFO'
+  end
   object IWTemplateProcessorHTML1: TIWTemplateProcessorHTML
     TagType = ttIntraWeb
     RenderStyles = False
-    Left = 352
-    Top = 56
+    Left = 432
+    Top = 400
   end
 end

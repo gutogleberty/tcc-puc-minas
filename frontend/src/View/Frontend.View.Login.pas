@@ -25,7 +25,8 @@ uses
   IWBaseContainerLayout,
   IWHTMLTag,
   IWContainerLayout,
-  IWTemplateProcessorHTML, Data.DB;
+  IWTemplateProcessorHTML,
+  Data.DB;
 
 type
   TViewLogin = class(TViewPadrao)
@@ -72,7 +73,10 @@ begin
     Exit;
   end;
 
-  TViewMenuPrincipal.Create(WebApplication).Show;
+  if (EdtUsuario.Text = 'usuario@pucminas.com.br') and (EdtSenha.Text = '123') then
+    TViewMenuPrincipal.Create(WebApplication).Show
+  else
+    WebApplication.ShowMessage('Usuário ou senha inválida');
 end;
 
 procedure TViewLogin.ConfiguraControles;
@@ -106,5 +110,3 @@ initialization
 
 end.
 
-// continuar
-// https://youtu.be/_KE_kpuqxV0?list=PLe3pgSSTNw4PD9GWnCcqWKMR3Ujb1rXMc&t=735

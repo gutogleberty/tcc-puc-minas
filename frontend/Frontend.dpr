@@ -20,15 +20,21 @@ uses
   Frontend.Model.Perfil in 'src\Model\Frontend.Model.Perfil.pas',
   ServerController in 'src\Controller\ServerController.pas' {IWServerController: TIWServerControllerBase},
   UserSessionUnit in 'src\Controller\UserSessionUnit.pas' {IWUserSession: TIWUserSessionBase},
-  Frontend.View.Fabricante in 'src\View\Frontend.View.Fabricante.pas' {ViewFabricante: TIWAppForm},
-  Frontend.View.Secao in 'src\View\Frontend.View.Secao.pas' {ViewSecao: TIWAppForm},
   Frontend.View.MenuPrincipal in 'src\View\Frontend.View.MenuPrincipal.pas' {ViewMenuPrincipal: TIWAppForm},
   Template.StartAdmin in 'src\Library\Template.StartAdmin.pas',
   Frontend.View.Login in 'src\View\Frontend.View.Login.pas' {ViewLogin: TIWAppForm},
-  Frontend.View.Produto in 'src\View\Frontend.View.Produto.pas' {ViewProduto: TIWAppForm},
-  Frontend.View.Usuario in 'src\View\Frontend.View.Usuario.pas' {ViewUsuario: TIWAppForm},
-  Frontend.View.Perfil in 'src\View\Frontend.View.Perfil.pas' {ViewPerfil: TIWAppForm},
-  Frontend.View.Padrao in 'src\View\Frontend.View.Padrao.pas' {ViewPadrao: TIWAppForm};
+  Frontend.View.Pq.Produto in 'src\View\Frontend.View.Pq.Produto.pas' {ViewPqProduto: TIWAppForm},
+  Frontend.View.Pq.Usuario in 'src\View\Frontend.View.Pq.Usuario.pas' {ViewPqUsuario: TIWAppForm},
+  Frontend.View.Pq.Perfil in 'src\View\Frontend.View.Pq.Perfil.pas' {ViewPqPerfil: TIWAppForm},
+  Frontend.View.Padrao in 'src\View\Frontend.View.Padrao.pas' {ViewPadrao: TIWAppForm},
+  Unit1 in 'Unit1.pas' {IWFrame1: TFrame},
+  Frontend.View.Cd.Fabricante in 'src\View\Frontend.View.Cd.Fabricante.pas' {ViewCdFabricante: TIWAppForm},
+  Frontend.View.Cd.Produto in 'src\View\Frontend.View.Cd.Produto.pas' {ViewCdProduto: TIWAppForm},
+  Frontend.View.Cd.Perfil in 'src\View\Frontend.View.Cd.Perfil.pas' {ViewCdPerfil: TIWAppForm},
+  Frontend.View.Cd.Usuario in 'src\View\Frontend.View.Cd.Usuario.pas' {ViewCdUsuario: TIWAppForm},
+  Frontend.View.Cd.Secao in 'src\View\Frontend.View.Cd.Secao.pas' {ViewCdSecao: TIWAppForm},
+  Frontend.View.Pq.Fabricante in 'src\View\Frontend.View.Pq.Fabricante.pas' {ViewPqFabricante: TIWAppForm},
+  Frontend.View.Pq.Secao in 'src\View\Frontend.View.Pq.Secao.pas' {ViewPqSecao: TIWAppForm};
 
 {$R *.res}
 
@@ -36,14 +42,4 @@ begin
   TIWStart.Execute(True);
 end.
 
-// https://www.youtube.com/playlist?list=PLxNM4ef1BpxhqmSHCti-UEd5_by9xEG2d
-// https://universidadedelphi.com.br/maratonaiw
-// https://github.com/Atozed/IntraWeb/tree/master
-// https://www.youtube.com/@intrawebbrasiliwbr9641/videos
-//https://novoead.com.br/aula/1651232968742x897897723235663900
-// curso > https://p.eduzz.com/44056
 
-// Maratona Intraweb 2021 (100%)
-// https://www.youtube.com/watch?v=c-eapUdzxUQ&list=PLe3pgSSTNw4PD9GWnCcqWKMR3Ujb1rXMc&index=4
-
-// https://www.w3schools.com/bootstrap/bootstrap_ver.asp

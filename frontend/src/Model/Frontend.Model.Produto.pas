@@ -17,6 +17,7 @@ type
     FCodFabricante: Integer;
     FCodSecao: Integer;
     FValorUnitario: Currency;
+    FEstoque: Integer;
   public
     constructor Create;
     destructor Destroy; override;
@@ -31,9 +32,12 @@ type
     function CodSecao: Integer; overload;
     function ValorUnitario(AValue: Currency): iModelProduto; overload;
     function ValorUnitario: Currency; overload;
+    function Estoque(AValue: Integer): iModelProduto; overload;
+    function Estoque: Integer; overload;
     procedure Listar(ADataSet: TDataSet);
     procedure Cadastrar;
     procedure Alterar;
+    procedure Deletar;
   end;
 
 implementation
@@ -55,6 +59,7 @@ begin
   LJSONProduto.AddPair('codfabricante',TJSONNumber.Create(CodFabricante));
   LJSONProduto.AddPair('codsecao',TJSONNumber.Create(CodSecao));
   LJSONProduto.AddPair('valorunitario',TJSONNumber.Create(ValorUnitario));
+  LJSONProduto.AddPair('estoque',TJSONNumber.Create(Estoque));
   LJSONMaster.AddPair('produto',LJSONProduto);
 
   TModelRequestRestPadrao.New
@@ -77,6 +82,7 @@ begin
   LJSONProduto.AddPair('codfabricante',TJSONNumber.Create(CodFabricante));
   LJSONProduto.AddPair('codsecao',TJSONNumber.Create(CodSecao));
   LJSONProduto.AddPair('valorunitario',TJSONNumber.Create(ValorUnitario));
+  LJSONProduto.AddPair('estoque',TJSONNumber.Create(Estoque));
   LJSONMaster.AddPair('produto',LJSONProduto);
 
   TModelRequestRestPadrao.New
@@ -127,6 +133,25 @@ begin
 
 end;
 
+procedure TModelProduto.Deletar;
+var
+  LJSONMaster: TJSONObject;
+  LJSONProduto: TJSONObject;
+begin
+  LJSONMaster := TJSONObject.Create;
+  LJSONProduto := TJSONObject.Create;
+  LJSONProduto.AddPair('codigo',TJSONNumber.Create(Codigo));
+  LJSONMaster.AddPair('produto',LJSONProduto);
+
+  TModelRequestRestPadrao.New
+                      .Server('localhost')
+                      .Port(9000)
+                      .Resource('produtos')
+                      .Method(rmDELETE)
+                      .AddJSON(LJSONMaster)
+                      .Request1;
+end;
+
 function TModelProduto.Descricao: string;
 begin
   Result := FDescricao;
@@ -142,6 +167,17 @@ destructor TModelProduto.Destroy;
 begin
 
   inherited;
+end;
+
+function TModelProduto.Estoque: Integer;
+begin
+  Result := Estoque;
+end;
+
+function TModelProduto.Estoque(AValue: Integer): iModelProduto;
+begin
+  Result := Self;
+  FEstoque := AValue;
 end;
 
 procedure TModelProduto.Listar(ADataSet: TDataSet);
@@ -174,6 +210,7 @@ begin
       ADataSet.FieldByName('fabricante').AsString := LJSONProduto.Get(I).GetValue<string>('fabricante');
       ADataSet.FieldByName('secao').AsString := LJSONProduto.Get(I).GetValue<string>('secao');
       ADataSet.FieldByName('valorunitario').AsCurrency := LJSONProduto.Get(I).GetValue<Currency>('valorunitario');
+      ADataSet.FieldByName('estoque').AsInteger := LJSONProduto.Get(I).GetValue<Integer>('estoque');
       ADataSet.Post;
     end;
   finally

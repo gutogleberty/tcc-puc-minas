@@ -18,9 +18,12 @@ type
     function CodSecao: Integer; overload;
     function ValorUnitario(AValue: Currency): iModelProduto; overload;
     function ValorUnitario: Currency; overload;
+    function Estoque(AValue: Integer): iModelProduto; overload;
+    function Estoque: Integer; overload;
     procedure Listar(ADataSet: TDataSet);
     procedure Cadastrar;
     procedure Alterar;
+    procedure Deletar;
   end;
 
 implementation

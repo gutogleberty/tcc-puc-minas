@@ -63,6 +63,7 @@ begin
     QryProduto.SQL.Add('   p.codigo,        ');
     QryProduto.SQL.Add('   p.descricao,     ');
     QryProduto.SQL.Add('   p.valorunitario, ');
+    QryProduto.SQL.Add('   p.estoque,       ');
     QryProduto.SQL.Add('   f.descricao as desfabric, ');
     QryProduto.SQL.Add('   s.descricao as dessecao   ');
     QryProduto.SQL.Add(' from               ');
@@ -97,6 +98,7 @@ begin
         ModelProduto.Codigo := QryProduto.FieldByName('codigo').AsInteger;
         ModelProduto.Descricao := QryProduto.FieldByName('descricao').AsString;
         ModelProduto.ValorUnitario := (QryProduto.FieldByName('valorunitario').AsFloat);
+        ModelProduto.Estoque := (QryProduto.FieldByName('estoque').AsInteger);
         ModelProduto.DesFabricante := QryProduto.FieldByName('desfabric').AsString;
         ModelProduto.DesSecao := QryProduto.FieldByName('dessecao').AsString;
         ListaProduto.Add(ModelProduto);
@@ -124,6 +126,7 @@ var
   LCodFabricante: Integer;
   LCodSecao: Integer;
   LValorUnitario: Currency;
+  LEstoque: Integer;
 begin
   ObjetoMaster := TJSONObject.ParseJSONValue(TEncoding.UTF8.GetBytes(Req.Body),0) as TJSONObject;
 
@@ -136,6 +139,7 @@ begin
   LCodFabricante := LJSONProduto.GetValue<Integer>('codfabricante');
   LCodSecao := LJSONProduto.GetValue<Integer>('codsecao');
   LValorUnitario := LJSONProduto.GetValue<Currency>('valorunitario');
+  LEstoque := LJSONProduto.GetValue<Integer>('estoque');
 
   try
     QryProduto.Close;
@@ -144,7 +148,8 @@ begin
     QryProduto.SQL.Add('   descricao = :pdescricao,  ');
     QryProduto.SQL.Add('   codfabricante = :pcodfabricante,  ');
     QryProduto.SQL.Add('   codsecao = :pcodsecao,  ');
-    QryProduto.SQL.Add('   valorunitario = :pvalorunitario  ');
+    QryProduto.SQL.Add('   valorunitario = :pvalorunitario,  ');
+    QryProduto.SQL.Add('   estoque = :pestoque  ');
     QryProduto.SQL.Add(' where                      ');
     QryProduto.SQL.Add('   codigo = :pcodigo        ');
 
@@ -153,6 +158,7 @@ begin
     QryProduto.ParamByName('pcodfabricante').AsInteger := LCodFabricante;
     QryProduto.ParamByName('pcodsecao').AsInteger := LCodSecao;
     QryProduto.ParamByName('pvalorunitario').AsCurrency := LValorUnitario;
+    QryProduto.ParamByName('pestoque').AsInteger := LEstoque;
 
     QryProduto.ExecSQL;
 
@@ -174,6 +180,7 @@ var
   LCodFabricante: Integer;
   LCodSecao: Integer;
   LValorUnitario: Currency;
+  LEstoque: Integer;
 begin
   ObjetoMaster := TJSONObject.ParseJSONValue(TEncoding.UTF8.GetBytes(Req.Body),0) as TJSONObject;
 
@@ -185,6 +192,7 @@ begin
   LCodFabricante := LJSONProduto.GetValue<Integer>('codfabricante');
   LCodSecao := LJSONProduto.GetValue<Integer>('codsecao');
   LValorUnitario := LJSONProduto.GetValue<Currency>('valorunitario');
+  LEstoque := LJSONProduto.GetValue<Integer>('estoque');
 
   try
     QryProduto.Close;
@@ -193,20 +201,23 @@ begin
     QryProduto.SQL.Add('   descricao,          ');
     QryProduto.SQL.Add('   codfabricante,      ');
     QryProduto.SQL.Add('   codsecao,           ');
-    QryProduto.SQL.Add('   valorunitario       ');
+    QryProduto.SQL.Add('   valorunitario,      ');
+    QryProduto.SQL.Add('   estoque             ');
     QryProduto.SQL.Add(')                      ');
     QryProduto.SQL.Add(' values                ');
     QryProduto.SQL.Add('(');
     QryProduto.SQL.Add(' :pdescricao,          ');
     QryProduto.SQL.Add(' :pcodfabricante,      ');
     QryProduto.SQL.Add(' :pcodsecao,           ');
-    QryProduto.SQL.Add(' :pvalorunitario       ');
+    QryProduto.SQL.Add(' :pvalorunitario,      ');
+    QryProduto.SQL.Add(' :pestoque             ');
     QryProduto.SQL.Add(')');
 
     QryProduto.ParamByName('pdescricao').AsString := LDescricao;
     QryProduto.ParamByName('pcodfabricante').AsInteger := LCodFabricante;
     QryProduto.ParamByName('pcodsecao').AsInteger := LCodSecao;
     QryProduto.ParamByName('pvalorunitario').AsCurrency := LValorUnitario;
+    QryProduto.ParamByName('pestoque').AsInteger := LEstoque;
 
     QryProduto.ExecSQL;
 

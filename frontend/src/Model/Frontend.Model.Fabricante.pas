@@ -18,12 +18,14 @@ type
     constructor Create;
     destructor Destroy; override;
     class function New: iModelFabricante;
+    function Codigo(AValue: Integer): iModelFabricante; overload;
     function Codigo: Integer; overload;
     function Descricao(AValue: string): iModelFabricante; overload;
     function Descricao: string; overload;
     procedure Listar(ADataSet: TDataSet);
     procedure Cadastrar;
     procedure Alterar;
+    procedure Deletar;
   end;
 
 implementation
@@ -73,6 +75,12 @@ begin
 
 end;
 
+function TModelFabricante.Codigo(AValue: Integer): iModelFabricante;
+begin
+  Result := Self;
+  FCodigo := AValue;
+end;
+
 function TModelFabricante.Codigo: Integer;
 begin
   Result := FCodigo;
@@ -87,6 +95,26 @@ function TModelFabricante.Descricao(AValue: string): iModelFabricante;
 begin
   Result := Self;
   FDescricao := AValue;
+end;
+
+procedure TModelFabricante.Deletar;
+var
+  LJSONMaster: TJSONObject;
+  LJSONFabricante: TJSONObject;
+begin
+  LJSONMaster := TJSONObject.Create;
+  LJSONFabricante := TJSONObject.Create;
+  LJSONFabricante.AddPair('codigo',TJSONNumber.Create(codigo));
+  LJSONMaster.AddPair('fabricante',LJSONFabricante);
+
+  TModelRequestRestPadrao.New
+                      .Server('localhost')
+                      .Port(9000)
+                      .Resource('fabricantes')
+                      .Method(rmDELETE)
+                      .AddJSON(LJSONMaster)
+                      .Request1;
+
 end;
 
 function TModelFabricante.Descricao: string;

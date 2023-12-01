@@ -16,6 +16,7 @@ type
     FCodSecao: Integer;
     FDesFabricante: string;
     FDesSecao: string;
+    FEstoque: Integer;
   public
     constructor Create;
     destructor Destroy; override;
@@ -24,6 +25,7 @@ type
     property CodFabricante: Integer read FCodFabricante write FCodFabricante;
     property CodSecao: Integer read FCodSecao write FCodSecao;
     property ValorUnitario: Currency read FValorUnitario write FValorUnitario;
+    property Estoque: Integer read FEstoque write FEstoque;
     property DesFabricante: string read FDesFabricante write FDesFabricante;
     property DesSecao: string read FDesSecao write FDesSecao;
     function GetJSON(var ListaProduto: TList<TModelProduto>): TJSONObject;
@@ -63,6 +65,7 @@ begin
       LJSONProduto.AddPair('fabricante',TJSONString.Create(ListaProduto[I].DesFabricante));
       LJSONProduto.AddPair('secao',TJSONString.Create(ListaProduto[I].DesSecao));
       LJSONProduto.AddPair('valorunitario',TJSONNumber.Create(ListaProduto[I].ValorUnitario));
+      LJSONProduto.AddPair('estoque',TJSONNumber.Create(ListaProduto[I].Estoque));
       LJSONListaProduto.AddElement(LJSONProduto);
     end;
     LJSONMaster.AddPair('produtos',LJSONListaProduto);

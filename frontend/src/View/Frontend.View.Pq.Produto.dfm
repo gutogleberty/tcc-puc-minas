@@ -1,0 +1,380 @@
+inherited ViewPqProduto: TViewPqProduto
+  Width = 840
+  ExplicitWidth = 840
+  DesignLeft = 2
+  DesignTop = 2
+  object DBGrid: TIWDBGrid [0]
+    AlignWithMargins = False
+    Left = 3
+    Top = 3
+    Width = 679
+    Height = 201
+    BorderColors.Color = clNone
+    BorderColors.Light = clNone
+    BorderColors.Dark = clNone
+    BGColor = clNone
+    BorderSize = 1
+    BorderStyle = tfDefault
+    Caption = 'DBGrid'
+    CellPadding = 0
+    CellSpacing = 0
+    FrameBuffer = 40
+    Lines = tlAll
+    UseFrame = True
+    UseSize = True
+    ShowEmptyCells = True
+    ShowInvisibleRows = True
+    ScrollToCurrentRow = False
+    Columns = <
+      item
+        Alignment = taLeftJustify
+        BGColor = clNone
+        DoSubmitValidation = True
+        Font.Color = clNone
+        Font.Size = 10
+        Font.Style = []
+        Font.PxSize = 13
+        Header = False
+        Height = '0'
+        ShowHint = True
+        VAlign = vaMiddle
+        Visible = True
+        Width = '0'
+        Wrap = False
+        RawText = False
+        Css = ''
+        BlobCharLimit = 0
+        CompareHighlight = hcNone
+        DataField = 'CODIGO'
+        LinkField = 'CODIGO'
+        Title.Alignment = taCenter
+        Title.BGColor = clNone
+        Title.DoSubmitValidation = True
+        Title.Font.Color = clNone
+        Title.Font.Size = 10
+        Title.Font.Style = []
+        Title.Font.PxSize = 13
+        Title.Header = False
+        Title.Height = '0'
+        Title.ShowHint = True
+        Title.Text = 'C'#243'digo'
+        Title.VAlign = vaMiddle
+        Title.Visible = True
+        Title.Width = '0'
+        Title.Wrap = False
+        Title.RawText = True
+      end
+      item
+        Alignment = taLeftJustify
+        BGColor = clNone
+        DoSubmitValidation = True
+        Font.Color = clNone
+        Font.Size = 10
+        Font.Style = []
+        Font.PxSize = 13
+        Header = False
+        Height = '0'
+        ShowHint = True
+        VAlign = vaMiddle
+        Visible = True
+        Width = '0'
+        Wrap = False
+        RawText = False
+        Css = ''
+        BlobCharLimit = 0
+        CompareHighlight = hcNone
+        DataField = 'DESCRICAO'
+        LinkField = 'DESCRICAO'
+        Title.Alignment = taCenter
+        Title.BGColor = clNone
+        Title.DoSubmitValidation = True
+        Title.Font.Color = clNone
+        Title.Font.Size = 10
+        Title.Font.Style = []
+        Title.Font.PxSize = 13
+        Title.Header = False
+        Title.Height = '0'
+        Title.ShowHint = True
+        Title.Text = 'Descri'#231#227'o'
+        Title.VAlign = vaMiddle
+        Title.Visible = True
+        Title.Width = '0'
+        Title.Wrap = False
+        Title.RawText = True
+      end
+      item
+        Alignment = taLeftJustify
+        BGColor = clNone
+        DoSubmitValidation = True
+        Font.Color = clNone
+        Font.Size = 10
+        Font.Style = []
+        Font.PxSize = 13
+        Header = False
+        Height = '0'
+        ShowHint = True
+        VAlign = vaMiddle
+        Visible = True
+        Width = '0'
+        Wrap = False
+        RawText = False
+        Css = ''
+        BlobCharLimit = 0
+        CompareHighlight = hcNone
+        DataField = 'FABRICANTE'
+        LinkField = 'FABRICANTE'
+        Title.Alignment = taCenter
+        Title.BGColor = clNone
+        Title.DoSubmitValidation = True
+        Title.Font.Color = clNone
+        Title.Font.Size = 10
+        Title.Font.Style = []
+        Title.Font.PxSize = 13
+        Title.Header = False
+        Title.Height = '0'
+        Title.ShowHint = True
+        Title.Text = 'Fabricante'
+        Title.VAlign = vaMiddle
+        Title.Visible = True
+        Title.Width = '0'
+        Title.Wrap = False
+        Title.RawText = True
+      end
+      item
+        Alignment = taLeftJustify
+        BGColor = clNone
+        DoSubmitValidation = True
+        Font.Color = clNone
+        Font.Size = 10
+        Font.Style = []
+        Font.PxSize = 13
+        Header = False
+        Height = '0'
+        ShowHint = True
+        VAlign = vaMiddle
+        Visible = True
+        Width = '0'
+        Wrap = False
+        RawText = False
+        Css = ''
+        BlobCharLimit = 0
+        CompareHighlight = hcNone
+        DataField = 'SECAO'
+        LinkField = 'SECAO'
+        Title.Alignment = taCenter
+        Title.BGColor = clNone
+        Title.DoSubmitValidation = True
+        Title.Font.Color = clNone
+        Title.Font.Size = 10
+        Title.Font.Style = []
+        Title.Font.PxSize = 13
+        Title.Header = False
+        Title.Height = '0'
+        Title.ShowHint = True
+        Title.Text = 'Se'#231#227'o'
+        Title.VAlign = vaMiddle
+        Title.Visible = True
+        Title.Width = '0'
+        Title.Wrap = False
+        Title.RawText = True
+      end
+      item
+        Alignment = taLeftJustify
+        BGColor = clNone
+        DoSubmitValidation = True
+        Font.Color = clNone
+        Font.Size = 10
+        Font.Style = []
+        Font.PxSize = 13
+        Header = False
+        Height = '0'
+        ShowHint = True
+        VAlign = vaMiddle
+        Visible = True
+        Width = '0'
+        Wrap = False
+        RawText = False
+        Css = ''
+        BlobCharLimit = 0
+        CompareHighlight = hcNone
+        DataField = 'VALORUNITARIO'
+        LinkField = 'VALORUNITARIO'
+        Title.Alignment = taCenter
+        Title.BGColor = clNone
+        Title.DoSubmitValidation = True
+        Title.Font.Color = clNone
+        Title.Font.Size = 10
+        Title.Font.Style = []
+        Title.Font.PxSize = 13
+        Title.Header = False
+        Title.Height = '0'
+        Title.ShowHint = True
+        Title.Text = 'Valor'
+        Title.VAlign = vaMiddle
+        Title.Visible = True
+        Title.Width = '0'
+        Title.Wrap = False
+        Title.RawText = True
+      end
+      item
+        Alignment = taLeftJustify
+        BGColor = clNone
+        DoSubmitValidation = True
+        Font.Color = clNone
+        Font.Size = 10
+        Font.Style = []
+        Font.PxSize = 13
+        Header = False
+        Height = '0'
+        ShowHint = True
+        VAlign = vaMiddle
+        Visible = True
+        Width = '0'
+        Wrap = False
+        RawText = False
+        Css = ''
+        BlobCharLimit = 0
+        CompareHighlight = hcNone
+        DataField = 'ESTOQUE'
+        Title.Alignment = taCenter
+        Title.BGColor = clNone
+        Title.DoSubmitValidation = True
+        Title.Font.Color = clNone
+        Title.Font.Size = 10
+        Title.Font.Style = []
+        Title.Font.PxSize = 13
+        Title.Header = False
+        Title.Height = '0'
+        Title.ShowHint = True
+        Title.Text = 'Estoque'
+        Title.VAlign = vaMiddle
+        Title.Visible = True
+        Title.Width = '0'
+        Title.Wrap = False
+        Title.RawText = True
+      end>
+    DataSource = DataSource1
+    FooterRowCount = 0
+    FriendlyName = 'Produtos'
+    FromStart = True
+    HighlightColor = clNone
+    HighlightRows = False
+    Options = [dgShowTitles]
+    RefreshMode = rmAutomatic
+    RowLimit = 0
+    RollOver = False
+    RowClick = False
+    RollOverColor = clNone
+    RowHeaderColor = clNone
+    RowAlternateColor = clNone
+    RowCurrentColor = clNone
+  end
+  object BtnExcluir: TIWButton [1]
+    AlignWithMargins = False
+    Left = 688
+    Top = 81
+    Width = 120
+    Height = 30
+    Caption = 'Excluir'
+    Color = clBtnFace
+    FriendlyName = 'IWButton1'
+  end
+  object BtnAlterar: TIWButton [2]
+    AlignWithMargins = False
+    Left = 688
+    Top = 45
+    Width = 120
+    Height = 30
+    Caption = 'Alterar'
+    Color = clBtnFace
+    FriendlyName = 'IWButton1'
+    OnAsyncClick = BtnAlterarAsyncClick
+  end
+  object BtnCadastrar: TIWButton [3]
+    AlignWithMargins = False
+    Left = 688
+    Top = 9
+    Width = 120
+    Height = 30
+    Caption = 'Novo'
+    Color = clBtnFace
+    FriendlyName = 'BtnNovo'
+    OnAsyncClick = BtnCadastrarAsyncClick
+  end
+  object BtnRetornar: TIWButton [4]
+    AlignWithMargins = False
+    Left = 688
+    Top = 153
+    Width = 120
+    Height = 30
+    Caption = 'Retornar'
+    Color = clBtnFace
+    FriendlyName = 'BtnRetornar'
+    OnAsyncClick = BtnRetornarAsyncClick
+  end
+  object IWRadioGroup1: TIWRadioGroup [5]
+    AlignWithMargins = False
+    Left = 3
+    Top = 222
+    Width = 617
+    Height = 51
+    SubmitOnAsyncEvent = True
+    RawText = False
+    Editable = True
+    FriendlyName = 'IWRadioGroup1'
+    ItemIndex = 0
+    Layout = glVertical
+  end
+  object BtnListar: TIWButton [6]
+    AlignWithMargins = False
+    Left = 688
+    Top = 117
+    Width = 120
+    Height = 30
+    Caption = 'Listar'
+    Color = clBtnFace
+    FriendlyName = 'BtnListar'
+    OnAsyncClick = BtnListarAsyncClick
+  end
+  inherited TPS: TIWTemplateProcessorHTML
+    Left = 368
+    Top = 88
+  end
+  inherited DataSource1: TDataSource
+    DataSet = FDMemTable1
+    Left = 758
+    Top = 202
+  end
+  object FDMemTable1: TFDMemTable
+    FetchOptions.AssignedValues = [evMode]
+    FetchOptions.Mode = fmAll
+    ResourceOptions.AssignedValues = [rvSilentMode]
+    ResourceOptions.SilentMode = True
+    UpdateOptions.AssignedValues = [uvCheckRequired, uvAutoCommitUpdates]
+    UpdateOptions.CheckRequired = False
+    UpdateOptions.AutoCommitUpdates = True
+    Left = 678
+    Top = 202
+    object FDMemTable1CODIGO: TIntegerField
+      FieldName = 'CODIGO'
+    end
+    object FDMemTable1DESCRICAO: TStringField
+      FieldName = 'DESCRICAO'
+      Size = 50
+    end
+    object FDMemTable1FABRICANTE: TStringField
+      FieldName = 'FABRICANTE'
+      Size = 30
+    end
+    object FDMemTable1SECAO: TStringField
+      FieldName = 'SECAO'
+      Size = 30
+    end
+    object FDMemTable1VALORUNITARIO: TCurrencyField
+      FieldName = 'VALORUNITARIO'
+    end
+    object FDMemTable1ESTOQUE: TIntegerField
+      FieldName = 'ESTOQUE'
+    end
+  end
+end

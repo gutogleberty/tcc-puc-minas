@@ -1,13 +1,13 @@
-inherited ViewProduto: TViewProduto
-  Width = 840
-  ExplicitWidth = 840
+inherited ViewPqSecao: TViewPqSecao
+  Width = 810
+  ExplicitWidth = 810
   DesignLeft = 2
   DesignTop = 2
   object DBGrid: TIWDBGrid [0]
     AlignWithMargins = False
-    Left = 11
-    Top = 11
-    Width = 617
+    Left = -62
+    Top = 3
+    Width = 639
     Height = 201
     BorderColors.Color = clNone
     BorderColors.Light = clNone
@@ -57,7 +57,7 @@ inherited ViewProduto: TViewProduto
         Title.Header = False
         Title.Height = '0'
         Title.ShowHint = True
-        Title.Text = 'CODIGO'
+        Title.Text = 'C'#243'digo'
         Title.VAlign = vaMiddle
         Title.Visible = True
         Title.Width = '0'
@@ -95,7 +95,7 @@ inherited ViewProduto: TViewProduto
         Title.Header = False
         Title.Height = '0'
         Title.ShowHint = True
-        Title.Text = 'DESCRICAO'
+        Title.Text = 'Descri'#231#227'o'
         Title.VAlign = vaMiddle
         Title.Visible = True
         Title.Width = '0'
@@ -133,7 +133,7 @@ inherited ViewProduto: TViewProduto
         Title.Header = False
         Title.Height = '0'
         Title.ShowHint = True
-        Title.Text = 'CODFABRICANTE'
+        Title.Text = 'Fabricante'
         Title.VAlign = vaMiddle
         Title.Visible = True
         Title.Width = '0'
@@ -171,7 +171,7 @@ inherited ViewProduto: TViewProduto
         Title.Header = False
         Title.Height = '0'
         Title.ShowHint = True
-        Title.Text = 'CODSECAO'
+        Title.Text = 'Se'#231#227'o'
         Title.VAlign = vaMiddle
         Title.Visible = True
         Title.Width = '0'
@@ -209,7 +209,44 @@ inherited ViewProduto: TViewProduto
         Title.Header = False
         Title.Height = '0'
         Title.ShowHint = True
-        Title.Text = 'VALORUNITARIO'
+        Title.Text = 'Valor'
+        Title.VAlign = vaMiddle
+        Title.Visible = True
+        Title.Width = '0'
+        Title.Wrap = False
+        Title.RawText = True
+      end
+      item
+        Alignment = taLeftJustify
+        BGColor = clNone
+        DoSubmitValidation = True
+        Font.Color = clNone
+        Font.Size = 10
+        Font.Style = []
+        Font.PxSize = 13
+        Header = False
+        Height = '0'
+        ShowHint = True
+        VAlign = vaMiddle
+        Visible = True
+        Width = '0'
+        Wrap = False
+        RawText = False
+        Css = ''
+        BlobCharLimit = 0
+        CompareHighlight = hcNone
+        DataField = 'ESTOQUE'
+        Title.Alignment = taCenter
+        Title.BGColor = clNone
+        Title.DoSubmitValidation = True
+        Title.Font.Color = clNone
+        Title.Font.Size = 10
+        Title.Font.Style = []
+        Title.Font.PxSize = 13
+        Title.Header = False
+        Title.Height = '0'
+        Title.ShowHint = True
+        Title.Text = 'Estoque'
         Title.VAlign = vaMiddle
         Title.Visible = True
         Title.Width = '0'
@@ -232,20 +269,21 @@ inherited ViewProduto: TViewProduto
     RowAlternateColor = clNone
     RowCurrentColor = clNone
   end
-  object BtnExcluir: TIWButton [1]
+  object BtnCadastrar: TIWButton [1]
     AlignWithMargins = False
-    Left = 688
-    Top = 182
+    Left = 595
+    Top = 3
     Width = 120
     Height = 30
-    Caption = 'Excluir'
+    Caption = 'Novo'
     Color = clBtnFace
-    FriendlyName = 'IWButton1'
+    FriendlyName = 'BtnNovo'
+    OnAsyncClick = BtnCadastrarAsyncClick
   end
   object BtnAlterar: TIWButton [2]
     AlignWithMargins = False
-    Left = 688
-    Top = 134
+    Left = 595
+    Top = 39
     Width = 120
     Height = 30
     Caption = 'Alterar'
@@ -253,32 +291,20 @@ inherited ViewProduto: TViewProduto
     FriendlyName = 'IWButton1'
     OnAsyncClick = BtnAlterarAsyncClick
   end
-  object BtnCadastrar: TIWButton [3]
+  object BtnExcluir: TIWButton [3]
     AlignWithMargins = False
-    Left = 688
-    Top = 86
+    Left = 595
+    Top = 75
     Width = 120
     Height = 30
-    Caption = 'Cadastrar'
+    Caption = 'Excluir'
     Color = clBtnFace
-    FriendlyName = 'BtnCadastrar'
-    OnAsyncClick = BtnCadastrarAsyncClick
+    FriendlyName = 'IWButton1'
   end
-  object BtnListar: TIWButton [4]
+  object BtnRetornar: TIWButton [4]
     AlignWithMargins = False
-    Left = 688
-    Top = 38
-    Width = 120
-    Height = 30
-    Caption = 'Listar'
-    Color = clBtnFace
-    FriendlyName = 'BtnListar'
-    OnAsyncClick = BtnListarAsyncClick
-  end
-  object BtnRetornar: TIWButton [5]
-    AlignWithMargins = False
-    Left = 688
-    Top = 218
+    Left = 595
+    Top = 147
     Width = 120
     Height = 30
     Caption = 'Retornar'
@@ -286,14 +312,19 @@ inherited ViewProduto: TViewProduto
     FriendlyName = 'BtnRetornar'
     OnAsyncClick = BtnRetornarAsyncClick
   end
-  inherited TPS: TIWTemplateProcessorHTML
-    Left = 208
-    Top = 16
+  object BtnListar: TIWButton [5]
+    AlignWithMargins = False
+    Left = 595
+    Top = 111
+    Width = 120
+    Height = 30
+    Caption = 'Listar'
+    Color = clBtnFace
+    FriendlyName = 'BtnListar'
+    OnAsyncClick = BtnListarAsyncClick
   end
   inherited DataSource1: TDataSource
     DataSet = FDMemTable1
-    Left = 374
-    Top = 306
   end
   object FDMemTable1: TFDMemTable
     FetchOptions.AssignedValues = [evMode]
@@ -303,25 +334,14 @@ inherited ViewProduto: TViewProduto
     UpdateOptions.AssignedValues = [uvCheckRequired, uvAutoCommitUpdates]
     UpdateOptions.CheckRequired = False
     UpdateOptions.AutoCommitUpdates = True
-    Left = 446
-    Top = 306
+    Left = 302
+    Top = 50
     object FDMemTable1CODIGO: TIntegerField
       FieldName = 'CODIGO'
     end
     object FDMemTable1DESCRICAO: TStringField
       FieldName = 'DESCRICAO'
       Size = 50
-    end
-    object FDMemTable1FABRICANTE: TStringField
-      FieldName = 'FABRICANTE'
-      Size = 30
-    end
-    object FDMemTable1SECAO: TStringField
-      FieldName = 'SECAO'
-      Size = 30
-    end
-    object FDMemTable1VALORUNITARIO: TCurrencyField
-      FieldName = 'VALORUNITARIO'
     end
   end
 end
